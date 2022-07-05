@@ -1,0 +1,75 @@
+.header{
+    padding: rem(43) rem(45);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eaeaea;
+
+    &_slogan_element{
+        display: flex;
+        flex-direction: row;
+    }
+
+    &_userbar_element{}
+}
+
+.market_name{
+    display: flex;
+    flex-direction: column;
+}
+
+.market_title{
+    font-size: em(20);
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: em(24);
+    color: var(--typography-black);
+}
+
+.market_misc{
+    font-size: em(14);
+    font-weight: 400;
+    color: var(--typography-special);
+}
+
+.ic-logo{
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin-right: rem(16);
+}
+
+.icon_userbar{}
+
+.ic-userbar{
+    width: 20px;
+    height: 20px;
+}
+
+.ic-card{
+    width: 18px;
+    height: 18px;
+}
+
+.userbar{
+    display: flex;
+    flex-direction: row;
+
+    &_item{
+        display: inline-flex;
+        align-items: center;
+        margin-right: rem(30);
+
+        & > span{
+            display: inline-block;
+            margin-left: rem(10);
+            font-size: em(14);
+            font-weight: 600;
+            line-height: em(17);
+            color: var(--cost-color);
+        }
+    }
+}

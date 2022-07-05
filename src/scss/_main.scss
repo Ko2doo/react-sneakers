@@ -1,0 +1,15 @@
+body{
+    background-color: var(--wrapper-background-color);
+}
+
+
+.main{
+    display: flex;
+    flex-direction: column;
+    max-width: rem(1080);
+    width: 100%;
+    margin: rem(80) auto 0;
+    border-radius: rem(20);
+    background-color: var(--def-white);
+    box-shadow: 0px 0px 8px 3px #d4ecf8;
+}
