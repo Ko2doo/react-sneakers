@@ -1,3 +1,86 @@
 .content{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     padding: rem(40);
+
+    &_title{
+        display: flex;
+        margin-left: rem(20);
+        font-size: em(32);
+        font-weight: 700;
+        line-height: em(39);
+        color: var(--typography-black);
+        width: 100%;
+    }
+}
+
+.card{
+    width: calc(100% / 4 - #{rem(42)});
+    min-height: 275px;
+    display: flex;
+    flex-direction: column;
+    padding: rem(20) rem(30);
+    margin: rem(40) rem(20);
+    background-color: var(--def-white);
+    border-radius: rem(40);
+    border: 1px solid var(--card-border-color);
+
+    &_preview{
+        max-width: 133px;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    &_prodname{
+        font-size: em(14);
+        font-weight: 400;
+        line-height: em(16.94);
+        margin-top: rem(14);
+        min-height: rem(60);
+        color: var(--typography-black);
+    }
+
+    &_footer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: rem(14) 0 rem(14);
+
+        .add_to_card{
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background-color: var(--def-white);
+            border: 1px solid var(--card-button-border-color);
+            border-radius: rem(8);
+        }
+    }
+
+    &_cost{
+
+        & > span{
+            display: flex;
+            width: 100%;
+            font-size: em(11);
+            font-weight: 500;
+            text-transform: uppercase;
+            line-height: em(13);
+            color: var(--card-span-color);
+        }
+
+        & > b{
+            display: flex;
+            margin-top: rem(4);
+            width: 100%;
+            font-size: em(14);
+            font-weight: 700;
+            line-height: em(17);
+            color: var(--typography-black);
+        }
+    }
 }
