@@ -11,9 +11,72 @@
         font-weight: 700;
         line-height: em(39);
         color: var(--typography-black);
-        width: 100%;
     }
 }
+
+.title_bar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search_block{
+    display: flex;
+    border: 1px solid var(--popular-border-color);
+    border-radius: rem(10);
+}
+
+.input_item{
+    max-width: 250px;
+    width: 100%;
+    text-align: left;
+    font-size: em(16);
+    font-weight: 400;
+    line-height: em(17);
+    padding: rem(15) rem(18);
+    position: relative;
+    border: none;
+    border-radius: rem(10);
+    color: var(--input-text-color);
+    &:focus-visible{
+        outline: none;
+    }
+}
+
+.icon_search{
+    margin-left: rem(18);
+}
+
+.add_to_favorite{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: rem(8);
+    cursor: pointer;
+    background-color: var(--def-white);
+    border: 1px solid var(--favorite-btn-border-color);
+    border-radius: rem(7);
+}
+
+
+.check_for_favorite{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: rem(8);
+    cursor: pointer;
+    background-color: var(--favorite-btn-checked-background-color);
+    border: 1px solid var(--favorite-btn-border-color);
+    border-radius: rem(7);
+}
+
 
 .card{
     width: calc(100% / 4 - #{rem(42)});
@@ -24,7 +87,21 @@
     margin: rem(40) rem(20);
     background-color: var(--def-white);
     border-radius: rem(40);
-    border: 1px solid var(--card-border-color);
+    border: 1px solid var(--popular-border-color);
+    transition-duration: 0.3s;
+    transition-property: transform, box-shadow, border;
+    transition-timing-function: ease-in-out;
+    &:hover{
+        transform: translate(0, -4px);
+        box-shadow: 0px 0px 6px 5px #f8f8f8;
+        border: 1px solid #F8F8F8;
+    }
+
+    &_headerbar{
+        display: flex;
+        flex-wrap: wrap;
+        padding: rem(4) 0;
+    }
 
     &_preview{
         max-width: 133px;
@@ -58,6 +135,10 @@
             background-color: var(--def-white);
             border: 1px solid var(--card-button-border-color);
             border-radius: rem(8);
+            &.is-checked{
+                background: linear-gradient(180deg, #89F09C 0%, #3CC755 100%);
+                border-color: transparent;
+            }
         }
     }
 

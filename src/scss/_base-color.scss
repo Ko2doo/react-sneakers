@@ -1,5 +1,6 @@
 :root{
     --def-white: #ffffff;
+    --def-green: #9DD458;
     --typography-black: #080707;
     --typography-special: #9D9D9D;
     --cost-color: #5C5C5C;
@@ -7,5 +8,15 @@
     --wrapper-background-color: #e6f6ff;
 
     --card-button-border-color: #F2F2F2;
-    --card-border-color: #F3F3F3;
+    --popular-border-color: #F3F3F3;
+
+    --input-text-color: #C4C4C4;
+    --outline-border-color: #080707;
+    --favorite-btn-border-color: #f8f8f8;
+    --favorite-btn-checked-background-color: #FEF0F0;
+
+    --checkout-hover-background-color: #7dc621;
+    --checkout-active-background-color: #65b304;
+
+    --checkout-active-background-color-gradient: linear-gradient(180deg, rgba(125,198,33,1) 50%, rgba(101,179,4,1) 100%);
 }
