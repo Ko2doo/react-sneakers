@@ -6,7 +6,7 @@
 
 import React from 'react';
 
-function Card() {
+function Card(props) {
   return (
     <article className="card">
       <div className="card_headerbar">
@@ -15,20 +15,21 @@ function Card() {
         </button>
 
         <button className="check_for_favorite" title="Показать в избранном">
-          <img src="/img/icons/ic-heart-liked.svg" alt="Liked" className="icon_onliked" />
+          <img src="/img/icons/ic-heart-liked.svg" alt="Liked" className="icon_liked" />
         </button>
       </div>
 
-      <img src="/img/items/item1.png" alt="sneakers preview" className="card_preview" />
-      <p className="card_prodname">Мужские Кроссовки Nike Blazer Mid Suede</p>
+      <img src={props.imageUrl} alt="sneakers preview" className="card_preview" />
+
+      <p className="card_prodname">{props.productTitle}</p>
 
       <div className="card_footer">
         <div className="card_cost">
           <span>Цена:</span>
-          <b>24.44$</b>
+          <b> {props.productPrice} $</b>
         </div>
         <button className="add_to_card" title="Добавить товар в корзину">
-          <img src="/img/icons/ic-add.svg" className="icon_card-card" />
+          <img src="/img/icons/ic-add.svg" alt="icon" className="icon_card-card" />
         </button>
       </div>
     </article>
