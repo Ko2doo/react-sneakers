@@ -1,3 +1,5 @@
+@import '../../scss/_helpers.scss';
+
 .header{
     padding: rem(43) rem(45);
     width: 100%;
@@ -13,7 +15,6 @@
         flex-direction: row;
     }
 
-    &_userbar_element{}
 }
 
 .market_name{
@@ -35,21 +36,20 @@
     color: var(--typography-special);
 }
 
-.ic-logo{
+.ic_logo{
     display: inline-block;
     width: 40px;
     height: 40px;
     margin-right: rem(16);
 }
 
-.icon_userbar{}
 
-.ic-userbar{
+.ic_userbar{
     width: 20px;
     height: 20px;
 }
 
-.ic-card{
+.ic_card{
     width: 18px;
     height: 18px;
 }

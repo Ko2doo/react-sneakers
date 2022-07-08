@@ -1,9 +1,9 @@
 // Импортируем различные компоненты
-import Drawer from './components/Drawer';
-import Header from './components/Header';
-import Card from './components/Card';
+import Drawer from './components/Drawer/Drawer';
+import Header from './components/Header/Header';
+import Card from './components/Card/Card';
 
-function App(props) {
+function App() {
   // массив с данными для формирования карточек товаров
   const productCardDataArray = [
     {

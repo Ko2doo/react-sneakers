@@ -1,0 +1,74 @@
+// Стилизуем кастомный alert
+@import '../../scss/_helpers.scss';
+
+/**
+ * ----------------------------------------
+ * animation scale-up-ver-top
+ * ----------------------------------------
+ */
+ @keyframes scale-up-ver-top {
+  0% {
+    transform: scaleY(0.4);
+    transform-origin: 100% 0%;
+  }
+  100% {
+    transform: scaleY(1);
+    transform-origin: 100% 0%;
+  }
+}
+
+
+.alert_info{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: -8%;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  max-width: rem(420);
+  width: 100%;
+  margin: 0 auto;
+  padding: rem(16) 0;
+  background-color: var(--def-white);
+  box-shadow: 0 0 6px 4px var(--popular-border-color);
+  border-radius: rem(20);
+  animation: scale-up-ver-top 0.4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+
+
+  &_headerbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: rem(6) rem(8);
+  }
+
+  &_close-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    padding: 0;
+    background-color: var(--def-white);
+    border: 1px solid #dbdbdb;
+    border-radius: rem(8);
+  }
+
+  &_title{
+    font-size: em(22);
+    font-weight: 700;
+    color: var(--typography-black);
+  }
+
+  &_description{
+    font-size: em(16);
+    font-weight: 400;
+    padding: 0 rem(12);
+    margin-top: rem(40);
+    color: var(--typography-black);
+  }
+
+}
