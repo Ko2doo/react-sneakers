@@ -19,8 +19,10 @@ function Header() {
       <div className={style.header_userbar_element}>
         <ul className={style.userbar}>
           <li className={style.userbar_item}>
-            <img src="/img/icons/ic-card.svg" alt="icon card" className={style.ic_card} />
-            <span>22.44$</span>
+            <button className={style.btn_drawer}>
+              <img src="/img/icons/ic-card.svg" alt="icon card" className={style.ic_card} />
+              <span>22.44$</span>
+            </button>
           </li>
           <li className={style.userbar_item}>
             <img src="/img/icons/ic-userbar.svg" alt="icon userbar" className={style.ic_userbar} />

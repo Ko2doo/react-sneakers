@@ -34,13 +34,14 @@ function App() {
 
   // Записываем в переменную productCard вызов компонента <Card/>,
   // с уже распечатанными данными из массива productCardDataArray.
-  let productCard = productCardDataArray.map((productCard) => (
+  let productCard = productCardDataArray.map((obj) => (
     <Card
-      id={productCard.id}
-      key={productCard.id}
-      imageUrl={productCard.imageUrl}
-      productTitle={productCard.title}
-      productPrice={productCard.price}
+      id={obj.id}
+      key={obj.id}
+      imageUrl={obj.imageUrl}
+      productTitle={obj.title}
+      productPrice={obj.price}
+      onClickBtnFavorite={() => alert('Добавили в избранное (но это не точно)')}
     />
   ));
 

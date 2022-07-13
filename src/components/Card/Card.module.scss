@@ -47,22 +47,6 @@
       justify-content: space-between;
       align-items: center;
       padding: rem(14) 0 rem(14);
-
-      .add_to_card{
-          width: 32px;
-          height: 32px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          background-color: var(--def-white);
-          border: 1px solid var(--card-button-border-color);
-          border-radius: rem(8);
-          &.is-checked{
-              background: linear-gradient(180deg, #89F09C 0%, #3CC755 100%);
-              border-color: transparent;
-          }
-      }
   }
 
   &_cost{
@@ -89,7 +73,24 @@
   }
 }
 
-.add_to_favorite{
+.btn_add_to_basked{
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--def-white);
+    border: 1px solid var(--card-button-border-color);
+    border-radius: rem(8);
+    &__isChecked{
+        @extend .btn_add_to_basked;
+        background: linear-gradient(180deg, #89F09C 0%, #3CC755 100%);
+        border-color: transparent;
+    }
+}
+
+.btn_to_favorite{
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -100,18 +101,8 @@
   background-color: var(--def-white);
   border: 1px solid var(--favorite-btn-border-color);
   border-radius: rem(7);
-}
-
-
-.check_for_favorite{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: rem(8);
-  cursor: pointer;
-  background-color: var(--favorite-btn-checked-background-color);
-  border: 1px solid var(--favorite-btn-border-color);
-  border-radius: rem(7);
+  &__isChecked{
+    @extend .btn_to_favorite;
+    background-color: var(--favorite-btn-checked-background-color);
+  }
 }
