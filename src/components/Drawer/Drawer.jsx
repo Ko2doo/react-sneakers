@@ -7,14 +7,29 @@ import React from 'react';
 import CartItem from '../CartItem/CartItem';
 import style from './Drawer.module.scss';
 
-function Drawer() {
+/*
+ * с помощью деструктуризации передаем вместо props onClose и items,
+ * объявив что items - по умолчанию является пустым массивом (т.е. корзина по умолчанию пуста).
+ */
+function Drawer({ onClose, items = [] }) {
+  // cartItem card
+  let cartItem = items.map((obj) => (
+    <CartItem
+      id={obj.id}
+      key={obj.id}
+      imageUrl={obj.imageUrl}
+      title={obj.title}
+      price={obj.price}
+    />
+  ));
+
   return (
     <div className={style.drawer_overlay}>
       <div className={style.drawer}>
         <header className={style.drawer_headerbar}>
           <h2 className={style.drawer_title}>Корзина</h2>
 
-          <button className={style.btn_close} title="Закрыть корзину">
+          <button onClick={onClose} className={style.btn_close} title="Закрыть корзину">
             <img
               src="/img/icons/ic-delete_this_item.svg"
               alt="Exit cart"
@@ -23,9 +38,7 @@ function Drawer() {
           </button>
         </header>
 
-        <div className={style.items_container}>
-          <CartItem />
-        </div>
+        <div className={style.items_container}>{cartItem}</div>
 
         <article className={style.summary}>
           <ul className={style.summary_list}>

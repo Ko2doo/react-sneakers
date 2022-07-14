@@ -8,11 +8,16 @@ import React from 'react';
 
 import style from './Card.module.scss';
 
-function Card(props) {
+/*
+ * { title, imageUrl, price, onClickAddToCart, onClickToFavorite }
+ */
+
+function Card({ title, imageUrl, price, onClickAddToCart, onClickToFavorite }) {
   // use method useState from btn addToCart
   const [isAdded, setIsAdded] = React.useState(false);
 
   const handleBtnAddCartClick = () => {
+    onClickAddToCart({ title, imageUrl, price });
     setIsAdded(!isAdded); // ! - если стоит, то меняем значение с true на false при повторном клике на кнопку.
   };
 
@@ -39,19 +44,19 @@ function Card(props) {
         </button>
       </div>
 
-      <img src={props.imageUrl} alt="sneakers preview" className={style.card_preview} />
+      <img src={imageUrl} alt="sneakers preview" className={style.card_preview} />
 
-      <p className={style.card_prodname}>{props.productTitle}</p>
+      <p className={style.card_prodname}>{title}</p>
 
       <div className={style.card_footer}>
         <div className={style.card_cost}>
           <span>Цена:</span>
-          <b> {props.productPrice} $</b>
+          <b> {price} $</b>
         </div>
         <button
           onClick={handleBtnAddCartClick}
           className={isAdded ? style.btn_add_to_basked__isChecked : style.btn_add_to_basked}
-          title="Добавить тов ар в корзину">
+          title={isAdded ? 'Добавлен' : 'Добавить товар в корзину'}>
           <img
             src={isAdded ? '/img/icons/ic-checked.svg' : '/img/icons/ic-add.svg'}
             alt="icon"

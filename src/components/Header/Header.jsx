@@ -5,7 +5,7 @@
 import React from 'react';
 import style from './Header.module.scss';
 
-function Header() {
+function Header(props) {
   return (
     <header className={style.header}>
       <div className={style.header_slogan_element}>
@@ -19,7 +19,7 @@ function Header() {
       <div className={style.header_userbar_element}>
         <ul className={style.userbar}>
           <li className={style.userbar_item}>
-            <button className={style.btn_drawer}>
+            <button onClick={props.onClickCart} className={style.btn_drawer}>
               <img src="/img/icons/ic-card.svg" alt="icon card" className={style.ic_card} />
               <span>22.44$</span>
             </button>
