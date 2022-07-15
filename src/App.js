@@ -1,5 +1,6 @@
 // Импортируем различные компоненты
 import React from 'react';
+import axios from 'axios';
 
 import Drawer from './components/Drawer/Drawer';
 import Header from './components/Header/Header';
@@ -27,25 +28,42 @@ function App() {
    * превращаем в массив данных с помощью json() и передаем в переменную json
    * хук useEffect нужен тут для отслеживания вызова данных с бэкэнда,
    * чтобы постоянно не отправлять запросы при каждом обновлении useState и app
-   */
+   * --------------------------------------------------------------------------
+   * Подключили библиотеку axios, теперь берем данные с бэкэнда ещё проще.
+   * fetch оставим как пример тут:
+   * fetch('https://62cff469d9bf9f1705801797.mockapi.io/items')
+   *   .then((res) => {
+   *     return res.json();
+   *   })
+   *   .then((json) => {
+   *     setItems(json); // записываем наш массив в setItems
+   *   });
+   * */
   React.useEffect(() => {
-    fetch('https://62cff469d9bf9f1705801797.mockapi.io/items')
-      .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setItems(json); // записываем наш массив в setItems
-      });
+    axios.get('https://62cff469d9bf9f1705801797.mockapi.io/items').then((res) => {
+      setItems(res.data);
+    });
   }, []);
 
   // функция добавления карточек в корзину
   const onAddToCart = (obj) => {
+    axios.post('https://62cff469d9bf9f1705801797.mockapi.io/cart', obj);
     setCartItems((prev) => [...prev, obj]); // заменяем данные в массиве с помощью ...; т.е. [...имя_функции, что_добавить] еще погуглить про функцию prev
   };
 
   // функция удаления товара из корзины
   const onDeleteItem = (id) => {
     setCartItems(cartItems.filter((obj) => obj.id !== id));
+  };
+
+  // Метод для извлечения данных из input для поиска данных
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value); // сохраняем данные из input в setSearchValue;
+  };
+
+  // удаление данных при клике на кнопку из input
+  const handlerDrawerInput = () => {
+    setSearchValue(''); // при клике на кнопку очистки input`а, верни нам пустую строку в input
   };
 
   // Записываем в переменную productCard вызов компонента <Card/>,
@@ -69,16 +87,6 @@ function App() {
         // onClickToFavorite={}
       />
     ));
-
-  // Метод для извлечения данных из input для поиска данных
-  const onChangeSearchInput = (event) => {
-    setSearchValue(event.target.value); // сохраняем данные из input в setSearchValue;
-  };
-
-  // удаление данных при клике на кнопку из input
-  const handlerDrawerInput = () => {
-    setSearchValue(''); // при клике на кнопку очистки input`а, верни нам пустую строку в input
-  };
 
   /*
    * Можно сократить код
