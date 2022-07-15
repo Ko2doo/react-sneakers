@@ -55,7 +55,7 @@ function App() {
    * в title найди любое содержимое которое есть в searchValue
    */
   let productCard = items
-    .filter((item) => item.title.includes(searchValue))
+    .filter((item) => item.title.toLowerCase().includes(searchValue))
     .map((item) => (
       <Card
         key={item.id}
