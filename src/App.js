@@ -10,15 +10,24 @@ function App() {
   // дальше распечатываем данные в карточки товаров.
   const [items, setItems] = React.useState([]);
 
-  // обрабатываем событие по клику на кнопку "корзина товаров", и открываем корзину,
-  // функцию передаём в пропсах в компонент header
+  /*
+   * обрабатываем событие по клику на кнопку "корзина товаров", и открываем корзину,
+   * функцию передаём в пропсах в компонент header
+   */
   const [cartOpened, setCartOpened] = React.useState(false);
   const [cartItems, setCartItems] = React.useState([]); // отдельный массив для хранения товаров в корзине.
 
-  //  с помощью fetch вытаскиваем данные из бэкэнда,
-  // превращаем в массив данных с помощью json() и передаем в переменную json
-  // хук useEffect нужен тут для отслеживания вызова данных с бэкэнда,
-  // чтобы постоянно не отправлять запросы при каждом обновлении useState и app
+  /*
+   * Состояние поля ввода для поиска товаров.
+   */
+  const [searchValue, setSearchValue] = React.useState(''); // Search State
+
+  /*
+   * с помощью fetch вытаскиваем данные из бэкэнда,
+   * превращаем в массив данных с помощью json() и передаем в переменную json
+   * хук useEffect нужен тут для отслеживания вызова данных с бэкэнда,
+   * чтобы постоянно не отправлять запросы при каждом обновлении useState и app
+   */
   React.useEffect(() => {
     fetch('https://62cff469d9bf9f1705801797.mockapi.io/items')
       .then((res) => {
@@ -35,23 +44,38 @@ function App() {
   };
 
   // функция удаления товара из корзины
-  const onDeleteItem = (obj) => {
-    setCartItems(cartItems.filter((p) => p !== obj));
+  const onDeleteItem = (id) => {
+    setCartItems(cartItems.filter((obj) => obj.id !== id));
   };
 
   // Записываем в переменную productCard вызов компонента <Card/>,
   // с уже распечатанными данными из массива приходящего с бэкэнда.
-  let productCard = items.map((item) => (
-    <Card
-      id={item.id}
-      key={item.id}
-      imageUrl={item.imageUrl}
-      title={item.title}
-      price={item.price}
-      onClickAddToCart={(obj) => onAddToCart(obj)}
-      // onClickToFavorite={}
-    />
-  ));
+  /* С помощью filter ищем в наших карточках (item)
+   * найди в item - title (заголовок, описание)
+   * в title найди любое содержимое которое есть в searchValue
+   */
+  let productCard = items
+    .filter((item) => item.title.includes(searchValue))
+    .map((item) => (
+      <Card
+        key={item.id}
+        imageUrl={item.imageUrl}
+        title={item.title}
+        price={item.price}
+        onClickAddToCart={(obj) => onAddToCart(obj)}
+        // onClickToFavorite={}
+      />
+    ));
+
+  // Метод для извлечения данных из input для поиска данных
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value); // сохраняем данные из input в setSearchValue;
+  };
+
+  // удаление данных при клике на кнопку из input
+  const handlerDrawerInput = () => {
+    setSearchValue(''); // при клике на кнопку очистки input`а, верни нам пустую строку в input
+  };
 
   /*
    * Можно сократить код
@@ -69,11 +93,32 @@ function App() {
 
         <section className="content">
           <div className="title_bar">
-            <h1 className="content_title">Все кроссовки</h1>
+            <h1 className="content_title">
+              {searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все кроссовки'}
+            </h1>
 
             <div className="search_block">
               <img src="/img/icons/ic-search.svg" alt="searching icon..." className="icon_search" />
-              <input className="input_item" placeholder="Поиск..." type="text" />
+
+              {searchValue ? (
+                <button
+                  onClick={handlerDrawerInput}
+                  className="btn_dwar"
+                  title="Очистить поле ввода">
+                  <img
+                    src="/img/icons/ic-delete_this_item.svg"
+                    alt="Draw input"
+                    className="ic_delete_this_item"
+                  />
+                </button>
+              ) : null}
+              <input
+                value={searchValue}
+                onChange={onChangeSearchInput}
+                className="input_item"
+                placeholder="Поиск..."
+                type="text"
+              />
             </div>
           </div>
 

@@ -14,13 +14,7 @@ import style from './Drawer.module.scss';
 function Drawer({ onClose, items = [] }) {
   // cartItem card
   let cartItem = items.map((obj) => (
-    <CartItem
-      id={obj.id}
-      key={obj.id}
-      imageUrl={obj.imageUrl}
-      title={obj.title}
-      price={obj.price}
-    />
+    <CartItem key={obj.id} imageUrl={obj.imageUrl} title={obj.title} price={obj.price} />
   ));
 
   return (

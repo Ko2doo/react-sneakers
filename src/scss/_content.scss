@@ -25,6 +25,8 @@
 
 .search_block{
     display: flex;
+    align-items: center;
+    position: relative;
     border: 1px solid var(--popular-border-color);
     border-radius: rem(10);
 }
