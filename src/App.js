@@ -58,7 +58,7 @@ function App() {
    * При этом не затрагивая рендер компонента на странице, т.е. исходный текст будет таким как в БД.
    */
   let productCard = items
-    .filter((item) => item.title.toLowerCase().includes(searchValue))
+    .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
     .map((item) => (
       <Card
         key={item.id}
