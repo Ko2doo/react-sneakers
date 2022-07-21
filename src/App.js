@@ -5,6 +5,7 @@ import axios from 'axios';
 import Drawer from './components/Drawer/Drawer';
 import Header from './components/Header/Header';
 import Card from './components/Card/Card';
+import Favorites from './components/Favorites/Favorites';
 
 function App() {
   // Передаём в массив данные с mockapi.io (бэкэнда) используя хук useState,
@@ -18,6 +19,9 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
   const [cartItems, setCartItems] = React.useState([]); // отдельный массив для хранения товаров в корзине.
 
+  // useState для избранных
+  const [itemsFavorite, setItemsFavorite] = React.useState([]);
+
   /*
    * Состояние поля ввода для поиска товаров.
    */
@@ -30,6 +34,7 @@ function App() {
    * чтобы постоянно не отправлять запросы при каждом обновлении useState и app
    * --------------------------------------------------------------------------
    * Подключили библиотеку axios, теперь берем данные с бэкэнда ещё проще.
+   * метод get -> получаем данные с сервера
    * fetch оставим как пример тут:
    * fetch('https://62cff469d9bf9f1705801797.mockapi.io/items')
    *   .then((res) => {
@@ -41,19 +46,45 @@ function App() {
    * */
   React.useEffect(() => {
     axios.get('https://62cff469d9bf9f1705801797.mockapi.io/items').then((res) => {
-      setItems(res.data);
+      setItems(res.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
+    });
+    axios.get('https://62cff469d9bf9f1705801797.mockapi.io/cart').then((res) => {
+      setCartItems(res.data); // Запрашиваем данные корзины товаров с сервера
+    });
+    axios.get('https://62cff469d9bf9f1705801797.mockapi.io/favorite').then((res) => {
+      setItemsFavorite(res.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
     });
   }, []);
 
-  // функция добавления карточек в корзину
+  // функция добавления карточек в корзину post -> отправили данные на сервер
   const onAddToCart = (obj) => {
     axios.post('https://62cff469d9bf9f1705801797.mockapi.io/cart', obj);
     setCartItems((prev) => [...prev, obj]); // заменяем данные в массиве с помощью ...; т.е. [...имя_функции, что_добавить] еще погуглить про функцию prev
   };
 
+  // функция добавления товара в избранное
+  const onAddToFavorites = (obj) => {
+    axios.post('https://62cff469d9bf9f1705801797.mockapi.io/favorite', obj);
+    setItemsFavorite((prev) => [...prev, obj]);
+    console.log(obj);
+  };
+
   // функция удаления товара из корзины
-  const onDeleteItem = (id) => {
-    setCartItems(cartItems.filter((obj) => obj.id !== id));
+  const onRemoveItem = (id) => {
+    axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`); // удаляем с сервера
+
+    /*
+     * с помощью filter фильтруем данные в массиве.
+     * дай мне предыдущий массив, возьми всё что в нем есть отфильтруй,
+     * и удали id того элемента который я передал через функцию при клике на кнопку
+     */
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  // функция удаления товара из корзины
+  const onRemoveFavorite = (id) => {
+    axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${id}`); // удаляем с сервера
+    setItemsFavorite((prev) => prev.filter((item) => item.id !== id));
   };
 
   // Метод для извлечения данных из input для поиска данных
@@ -84,7 +115,8 @@ function App() {
         title={item.title}
         price={item.price}
         onClickAddToCart={(obj) => onAddToCart(obj)}
-        // onClickToFavorite={}
+        onAddToFavorites={(obj) => onAddToFavorites(obj)}
+        onRemoveFavorite={(obj) => onRemoveFavorite(obj)}
       />
     ));
 
@@ -97,7 +129,9 @@ function App() {
 
   return (
     <div className="wrapper">
-      {cartOpened ? <Drawer items={cartItems} onClose={() => setCartOpened(false)} /> : null}
+      {cartOpened ? (
+        <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />
+      ) : null}
 
       <main className="main">
         <Header onClickCart={() => setCartOpened(true)} />
@@ -132,8 +166,9 @@ function App() {
               />
             </div>
           </div>
-
           {productCard}
+
+          <Favorites itemsFavorite={itemsFavorite} />
         </section>
       </main>
     </div>

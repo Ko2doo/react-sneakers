@@ -15,7 +15,7 @@ function CartItem(props) {
         <p className={style.cart_item__prodname}>{props.title}</p>
         <span className={style.cart_item__prodcost}>{props.price} $</span>
       </div>
-      <button className={style.btn_remove} title="Удалить из корзины">
+      <button onClick={props.onRemove} className={style.btn_remove} title="Удалить из корзины">
         <img
           src="/img/icons/ic-delete_this_item.svg"
           alt="Delete this item"

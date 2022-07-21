@@ -12,7 +12,7 @@ import style from './Card.module.scss';
  * { title, imageUrl, price, onClickAddToCart, onClickToFavorite }
  */
 
-function Card({ title, imageUrl, price, onClickAddToCart, onClickToFavorite }) {
+function Card({ title, imageUrl, price, onClickAddToCart, onAddToFavorites, onRemoveFavorite }) {
   // use method useState from btn addToCart
   const [isAdded, setIsAdded] = React.useState(false);
 
@@ -25,6 +25,7 @@ function Card({ title, imageUrl, price, onClickAddToCart, onClickToFavorite }) {
   const [isAddedFavorite, setIsAddedFavorite] = React.useState(false);
 
   const handleBtnToFavoriteClick = () => {
+    onAddToFavorites({ title, imageUrl, price });
     setIsAddedFavorite(!isAddedFavorite);
   };
 
