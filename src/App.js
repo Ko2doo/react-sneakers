@@ -70,17 +70,21 @@ function App() {
     // Если, в массиве itemFavorite находим одинаковый obj.id,
     // то при клике удаляем его.
     // Или добавляем в избранное
-    if (itemsFavorite.find((favObj) => favObj.id === obj.id)) {
-      axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${obj.id}`); // удаляем с сервера
-      setItemsFavorite((prev) => prev.filter((item) => item.id !== obj.id));
-      console.log('Удалено из избранного:' + obj.id);
-    } else {
-      const { data } = await axios.post(
-        'https://62cff469d9bf9f1705801797.mockapi.io/favorite',
-        obj,
-      );
-      setItemsFavorite((prev) => [...prev, data]);
-      console.log('Добавлено в избранное:' + obj.id);
+    try {
+      if (itemsFavorite.find((favObj) => favObj.id === obj.id)) {
+        axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${obj.id}`); // удаляем с сервера
+        setItemsFavorite((prev) => prev.filter((item) => item.id !== obj.id));
+        console.log('Удалено из избранного:' + obj.id);
+      } else {
+        const { data } = await axios.post(
+          'https://62cff469d9bf9f1705801797.mockapi.io/favorite',
+          obj,
+        );
+        setItemsFavorite((prev) => [...prev, data]);
+        console.log('Добавлено в избранное:' + obj.id);
+      }
+    } catch (error) {
+      alert('Не удалось добавить в фавориты :(');
     }
   };
 
