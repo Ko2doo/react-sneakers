@@ -16,6 +16,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
   let cartItem = items.map((obj) => (
     <CartItem
       key={obj.id}
+      id={obj.id}
       imageUrl={obj.imageUrl}
       title={obj.title}
       price={obj.price}

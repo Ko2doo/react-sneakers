@@ -25,7 +25,7 @@ function Card({
   const [isAdded, setIsAdded] = React.useState(false);
 
   const handleBtnAddCartClick = () => {
-    onClickAddToCart({ title, imageUrl, price });
+    onClickAddToCart({ id, title, imageUrl, price });
     setIsAdded(!isAdded); // ! - если стоит, то меняем значение с true на false при повторном клике на кнопку.
   };
 

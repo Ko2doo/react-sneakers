@@ -59,7 +59,7 @@ function App() {
   }, []);
 
   // функция добавления карточек в корзину post -> отправили данные на сервер
-  const onAddToCart = (obj) => {
+  const onAddToCart = async (obj) => {
     axios.post('https://62cff469d9bf9f1705801797.mockapi.io/cart', obj);
     setCartItems((prev) => [...prev, obj]); // заменяем данные в массиве с помощью ...; т.е. [...имя_функции, что_добавить] еще погуглить про функцию prev
     console.log(obj);
@@ -89,15 +89,27 @@ function App() {
   };
 
   // функция удаления товара из корзины
-  const onRemoveItem = (id) => {
-    axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`); // удаляем с сервера
+  const onRemoveItem = async (id) => {
+    try {
+      if (cartItems.find((itemObj) => itemObj.id === id)) {
+        const { data } = await axios.delete(
+          `https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`,
+        ); // удаляем с сервера
+        setCartItems((prev) => prev.filter((data) => data.id !== id));
+        console.log('Удаляем товар с сервера и из корзины.' + data.id);
+      }
+    } catch (error) {
+      alert('Ошибка удаления товара!');
+    }
+
+    // axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`); // удаляем с сервера
 
     /*
      * с помощью filter фильтруем данные в массиве.
      * дай мне предыдущий массив, возьми всё что в нем есть отфильтруй,
      * и удали id того элемента который я передал через функцию при клике на кнопку
      */
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+    // setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   // Метод для извлечения данных из input для поиска данных
