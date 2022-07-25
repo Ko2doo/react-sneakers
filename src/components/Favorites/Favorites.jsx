@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import style from './Favorites.module.scss';
 import Card from '../Card/Card';
 
@@ -9,17 +10,17 @@ function Favorites(props) {
       imageUrl={item.imageUrl}
       title={item.title}
       price={item.price}
-      onClickAddToCart={(obj) => props.onAddToCart(obj)}
-      onAddToFavorites={(obj) => props.onAddToFavorites(obj)}
+      onClickAddToCart={props.onClickAddToCart}
+      onAddToFavorites={props.onAddToFavorites}
     />
   ));
 
   return (
     <section className={style.content}>
       <div className={style.header_bar}>
-        <button className={style.btn_goback} title="Назад">
+        <Link to="/" className={style.btn_goback} title="На главную">
           <img className={style.btn_icon} src="/img/icons/ic-right.svg" alt="icon item" />
-        </button>
+        </Link>
         <h1 className={style.content_title}>Мои закладки</h1>
       </div>
 

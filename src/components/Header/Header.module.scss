@@ -10,11 +10,16 @@
     align-items: center;
     border-bottom: 1px solid #eaeaea;
 
-    &_slogan_element{
-        display: flex;
-        flex-direction: row;
-    }
+}
 
+.link_element{
+    display: flex;
+}
+
+.link_to_generalpage{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
 }
 
 .market_name{
@@ -45,8 +50,8 @@
 
 
 .ic_userbar{
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
 }
 
 .ic_card{
@@ -54,9 +59,13 @@
     height: 18px;
 }
 
-.userbar{
+.navbar{
     display: flex;
     flex-direction: row;
+}
+
+.userbar{
+    @extend .navbar;
 
     &_item{
         display: inline-flex;
@@ -72,6 +81,13 @@
             color: var(--cost-color);
         }
     }
+}
+
+.favorite_link{
+    display: inline-flex;
+    align-items: center;
+    width: rem(22);
+    height: rem(22);
 }
 
 .btn_drawer{

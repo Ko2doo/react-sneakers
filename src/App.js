@@ -1,10 +1,12 @@
 // Импортируем различные компоненты
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
 import Drawer from './components/Drawer/Drawer';
 import Header from './components/Header/Header';
 import Card from './components/Card/Card';
+import Home from './pages/Home';
 import Favorites from './components/Favorites/Favorites';
 
 function App() {
@@ -136,40 +138,32 @@ function App() {
       <main className="main">
         <Header onClickCart={() => setCartOpened(true)} />
 
-        <section className="content">
-          <div className="title_bar">
-            <h1 className="content_title">
-              {searchValue ? `Поиск по запросу: "${searchValue}"` : 'Все кроссовки'}
-            </h1>
-
-            <div className="search_block">
-              <img src="/img/icons/ic-search.svg" alt="searching icon..." className="icon_search" />
-
-              {searchValue ? (
-                <button
-                  onClick={handlerDrawerInput}
-                  className="btn_dwar"
-                  title="Очистить поле ввода">
-                  <img
-                    src="/img/icons/ic-delete_this_item.svg"
-                    alt="Draw input"
-                    className="ic_delete_this_item"
-                  />
-                </button>
-              ) : null}
-              <input
-                value={searchValue}
-                onChange={onChangeSearchInput}
-                className="input_item"
-                placeholder="Поиск..."
-                type="text"
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Home
+                items={items}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+                onChangeSearchInput={onChangeSearchInput}
+                handlerDrawerInput={handlerDrawerInput}
+                productCard={productCard}
+                onAddToCart={onAddToCart}
+                onAddToFavorites={onAddToFavorites}
               />
-            </div>
-          </div>
-          {productCard}
-
-          <Favorites itemsFavorite={itemsFavorite} />
-        </section>
+            }
+            exact></Route>
+          <Route
+            path="/favorites"
+            element={
+              <Favorites
+                itemsFavorite={itemsFavorite}
+                onClickAddToCart={(obj) => onAddToCart(obj)}
+                onAddToFavorites={(obj) => onAddToFavorites(obj)}
+              />
+            }></Route>
+        </Routes>
       </main>
     </div>
   );
