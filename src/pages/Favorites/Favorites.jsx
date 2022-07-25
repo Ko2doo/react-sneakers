@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import style from './Favorites.module.scss';
-import Card from '../Card/Card';
+import Card from '../../components/Card/Card';
 
 function Favorites(props) {
   let favoriteCard = props.itemsFavorite.map((item) => (

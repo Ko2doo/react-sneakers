@@ -29,7 +29,7 @@ function Header(props) {
             </button>
           </li>
           <li className={style.userbar_item}>
-            <Link className={style.favorite_link} to="/favorites">
+            <Link title="Переход в избранное" className={style.favorite_link} to="/favorites">
               <img src="/img/icons/ic-addmefavorite.svg" alt="favorites" />
             </Link>
           </li>

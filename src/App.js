@@ -7,7 +7,7 @@ import Drawer from './components/Drawer/Drawer';
 import Header from './components/Header/Header';
 import Card from './components/Card/Card';
 import Home from './pages/Home';
-import Favorites from './components/Favorites/Favorites';
+import Favorites from './pages/Favorites/Favorites';
 
 function App() {
   // Передаём в массив данные с mockapi.io (бэкэнда) используя хук useState,
