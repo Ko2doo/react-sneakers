@@ -7,11 +7,13 @@ function Favorites(props) {
   let favoriteCard = props.itemsFavorite.map((item) => (
     <Card
       key={item.id}
+      id={item.id}
       imageUrl={item.imageUrl}
       title={item.title}
       price={item.price}
       onClickAddToCart={props.onClickAddToCart}
       onAddToFavorites={props.onAddToFavorites}
+      favorited={true}
     />
   ));
 

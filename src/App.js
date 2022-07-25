@@ -62,13 +62,26 @@ function App() {
   const onAddToCart = (obj) => {
     axios.post('https://62cff469d9bf9f1705801797.mockapi.io/cart', obj);
     setCartItems((prev) => [...prev, obj]); // заменяем данные в массиве с помощью ...; т.е. [...имя_функции, что_добавить] еще погуглить про функцию prev
+    console.log(obj);
   };
 
-  // функция добавления товара в избранное
-  const onAddToFavorites = (obj) => {
-    axios.post('https://62cff469d9bf9f1705801797.mockapi.io/favorite', obj);
-    setItemsFavorite((prev) => [...prev, obj]);
-    console.log(obj);
+  // асинхронная функция добавления|удаления товара из избранного
+  const onAddToFavorites = async (obj) => {
+    // Если, в массиве itemFavorite находим одинаковый obj.id,
+    // то при клике удаляем его.
+    // Или добавляем в избранное
+    if (itemsFavorite.find((favObj) => favObj.id === obj.id)) {
+      axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${obj.id}`); // удаляем с сервера
+      setItemsFavorite((prev) => prev.filter((item) => item.id !== obj.id));
+      console.log('Удалено из избранного:' + obj.id);
+    } else {
+      const { data } = await axios.post(
+        'https://62cff469d9bf9f1705801797.mockapi.io/favorite',
+        obj,
+      );
+      setItemsFavorite((prev) => [...prev, data]);
+      console.log('Добавлено в избранное:' + obj.id);
+    }
   };
 
   // функция удаления товара из корзины
@@ -81,12 +94,6 @@ function App() {
      * и удали id того элемента который я передал через функцию при клике на кнопку
      */
     setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
-  // функция удаления товара из корзины
-  const onRemoveFavorite = (id) => {
-    axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${id}`); // удаляем с сервера
-    setItemsFavorite((prev) => prev.filter((item) => item.id !== id));
   };
 
   // Метод для извлечения данных из input для поиска данных
@@ -113,12 +120,12 @@ function App() {
     .map((item) => (
       <Card
         key={item.id}
+        id={item.id}
         imageUrl={item.imageUrl}
         title={item.title}
         price={item.price}
         onClickAddToCart={(obj) => onAddToCart(obj)}
         onAddToFavorites={(obj) => onAddToFavorites(obj)}
-        onRemoveFavorite={(obj) => onRemoveFavorite(obj)}
       />
     ));
 
@@ -162,7 +169,8 @@ function App() {
                 onClickAddToCart={(obj) => onAddToCart(obj)}
                 onAddToFavorites={(obj) => onAddToFavorites(obj)}
               />
-            }></Route>
+            }
+            exact></Route>
         </Routes>
       </main>
     </div>
