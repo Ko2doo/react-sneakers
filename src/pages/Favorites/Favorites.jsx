@@ -11,7 +11,7 @@ function Favorites(props) {
       imageUrl={item.imageUrl}
       title={item.title}
       price={item.price}
-      onClickAddToCart={props.onClickAddToCart}
+      onAddToCart={props.onAddToCart}
       onAddToFavorites={props.onAddToFavorites}
       favorited
     />

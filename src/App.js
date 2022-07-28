@@ -5,7 +5,6 @@ import axios from 'axios';
 
 import Drawer from './components/Drawer/Drawer';
 import Header from './components/Header/Header';
-import Card from './components/Card/Card';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites/Favorites';
 
@@ -29,6 +28,9 @@ function App() {
    */
   const [searchValue, setSearchValue] = React.useState(''); // Search State
 
+  // состояние загрузки приложения, для skeleton
+  const [isLoading, setIsLoading] = React.useState(true);
+
   /*
    * с помощью fetch вытаскиваем данные из бэкэнда,
    * превращаем в массив данных с помощью json() и передаем в переменную json
@@ -47,15 +49,25 @@ function App() {
    *   });
    * */
   React.useEffect(() => {
-    axios.get('https://62cff469d9bf9f1705801797.mockapi.io/items').then((res) => {
-      setItems(res.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
-    });
-    axios.get('https://62cff469d9bf9f1705801797.mockapi.io/cart').then((res) => {
-      setCartItems(res.data); // Запрашиваем данные корзины товаров с сервера
-    });
-    axios.get('https://62cff469d9bf9f1705801797.mockapi.io/favorite').then((res) => {
-      setItemsFavorite(res.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
-    });
+    /*
+     * Асинхронная функ-ия для контроля загрузки данных с сервера.
+     * сначала грузим состояние корзины, после состояние избранных товаров, и только потом сами карточки на гл стр.
+     */
+    async function fetchData() {
+      const cartResponse = await axios.get('https://62cff469d9bf9f1705801797.mockapi.io/cart');
+      const favoritesResponse = await axios.get(
+        'https://62cff469d9bf9f1705801797.mockapi.io/favorite',
+      );
+      const itemsResponse = await axios.get('https://62cff469d9bf9f1705801797.mockapi.io/items');
+
+      setIsLoading(false);
+
+      setCartItems(cartResponse.data); // Запрашиваем данные корзины товаров с сервера
+      setItemsFavorite(favoritesResponse.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
+      setItems(itemsResponse.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
+    }
+
+    fetchData();
   }, []);
 
   // функция добавления карточек в корзину post -> отправили данные на сервер
@@ -83,7 +95,7 @@ function App() {
     try {
       if (itemsFavorite.find((favObj) => Number(favObj.id) === Number(obj.id))) {
         axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${obj.id}`); // удаляем с сервера
-        setItemsFavorite((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+        setItemsFavorite((prev) => prev.filter((favObj) => Number(favObj.id) !== Number(obj.id)));
         console.log('Удалено из избранного:' + obj.id);
       } else {
         const { data } = await axios.post(
@@ -100,18 +112,6 @@ function App() {
 
   // функция удаления товара из корзины
   const onRemoveItem = (id) => {
-    // try {
-    //   if (cartItems.find((itemId) => itemId.id !== id)) {
-    //     const { data } = await axios.delete(
-    //       `https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`,
-    //     ); // удаляем с сервера
-    //     setCartItems((prev) => prev.filter((data) => data.id !== id));
-    //     console.log('Удаляем товар с сервера и из корзины.' + data.id);
-    //   }
-    // } catch (error) {
-    //   alert('Ошибка удаления товара!');
-    // }
-
     axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`); // удаляем с сервера
 
     /*
@@ -131,32 +131,6 @@ function App() {
   const handlerDrawerInput = () => {
     setSearchValue(''); // при клике на кнопку очистки input`а, верни нам пустую строку в input
   };
-
-  // Записываем в переменную productCard вызов компонента <Card/>,
-  // с уже распечатанными данными из массива приходящего с бэкэнда.
-  /* С помощью filter ищем в наших карточках (item)
-   * найди в item - title (заголовок, описание)
-   * в title найди любое содержимое которое есть в searchValue
-   * toLowerCase() -> js функция, переводящая строку в нижний регистр, в данном примере
-   * мы переводим в нижний регистр всё, что будет печататься в поле для ввода.
-   * При этом не затрагивая рендер компонента на странице, т.е. исходный текст будет таким как в БД.
-   * метод some - работает почти как find, но возвращает false/true если хотябы один объект совпал
-   */
-  let productCard = items
-    .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
-    .map((item) => (
-      <Card
-        key={item.id}
-        id={item.id}
-        imageUrl={item.imageUrl}
-        title={item.title}
-        price={item.price}
-        onClickAddToCart={(obj) => onAddToCart(obj)}
-        onAddToFavorites={(obj) => onAddToFavorites(obj)}
-        added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
-        favorited={itemsFavorite.some((obj) => Number(obj.id) === Number(item.id))}
-      />
-    ));
 
   /*
    * Можно сократить код
@@ -180,14 +154,15 @@ function App() {
             element={
               <Home
                 items={items}
+                onAddToCart={onAddToCart}
+                onAddToFavorites={onAddToFavorites}
                 cartItems={cartItems}
+                itemsFavorite={itemsFavorite}
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}
                 onChangeSearchInput={onChangeSearchInput}
                 handlerDrawerInput={handlerDrawerInput}
-                productCard={productCard}
-                onAddToCart={onAddToCart}
-                onAddToFavorites={onAddToFavorites}
+                isLoading={isLoading}
               />
             }
             exact></Route>
@@ -196,7 +171,7 @@ function App() {
             element={
               <Favorites
                 itemsFavorite={itemsFavorite}
-                onClickAddToCart={(obj) => onAddToCart(obj)}
+                onAddToCart={(obj) => onAddToCart(obj)}
                 onAddToFavorites={(obj) => onAddToFavorites(obj)}
               />
             }
