@@ -59,10 +59,20 @@ function App() {
   }, []);
 
   // функция добавления карточек в корзину post -> отправили данные на сервер
-  const onAddToCart = async (obj) => {
-    axios.post('https://62cff469d9bf9f1705801797.mockapi.io/cart', obj);
-    setCartItems((prev) => [...prev, obj]); // заменяем данные в массиве с помощью ...; т.е. [...имя_функции, что_добавить] еще погуглить про функцию prev
-    console.log(obj);
+  const onAddToCart = (obj) => {
+    try {
+      if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+        axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${obj.id}`);
+        setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id))); // сравниваем id, если не равно, сносим.
+        console.log('Удалено из корзины: ' + obj.id);
+      } else {
+        axios.post('https://62cff469d9bf9f1705801797.mockapi.io/cart/', obj);
+        setCartItems((prev) => [...prev, obj]); // заменяем данные в массиве с помощью ...; т.е. [...имя_функции, что_добавить] еще погуглить про функцию prev
+        console.log('Добавлено в корзину: ' + obj.id);
+      }
+    } catch (error) {
+      alert('Не удалось добавить в корзину :(');
+    }
   };
 
   // асинхронная функция добавления|удаления товара из избранного
@@ -71,9 +81,9 @@ function App() {
     // то при клике удаляем его.
     // Или добавляем в избранное
     try {
-      if (itemsFavorite.find((favObj) => favObj.id === obj.id)) {
+      if (itemsFavorite.find((favObj) => Number(favObj.id) === Number(obj.id))) {
         axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${obj.id}`); // удаляем с сервера
-        setItemsFavorite((prev) => prev.filter((item) => item.id !== obj.id));
+        setItemsFavorite((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
         console.log('Удалено из избранного:' + obj.id);
       } else {
         const { data } = await axios.post(
@@ -89,27 +99,27 @@ function App() {
   };
 
   // функция удаления товара из корзины
-  const onRemoveItem = async (id) => {
-    try {
-      if (cartItems.find((itemObj) => itemObj.id === id)) {
-        const { data } = await axios.delete(
-          `https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`,
-        ); // удаляем с сервера
-        setCartItems((prev) => prev.filter((data) => data.id !== id));
-        console.log('Удаляем товар с сервера и из корзины.' + data.id);
-      }
-    } catch (error) {
-      alert('Ошибка удаления товара!');
-    }
+  const onRemoveItem = (id) => {
+    // try {
+    //   if (cartItems.find((itemId) => itemId.id !== id)) {
+    //     const { data } = await axios.delete(
+    //       `https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`,
+    //     ); // удаляем с сервера
+    //     setCartItems((prev) => prev.filter((data) => data.id !== id));
+    //     console.log('Удаляем товар с сервера и из корзины.' + data.id);
+    //   }
+    // } catch (error) {
+    //   alert('Ошибка удаления товара!');
+    // }
 
-    // axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`); // удаляем с сервера
+    axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`); // удаляем с сервера
 
     /*
      * с помощью filter фильтруем данные в массиве.
      * дай мне предыдущий массив, возьми всё что в нем есть отфильтруй,
      * и удали id того элемента который я передал через функцию при клике на кнопку
      */
-    // setCartItems((prev) => prev.filter((item) => item.id !== id));
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   // Метод для извлечения данных из input для поиска данных
@@ -130,6 +140,7 @@ function App() {
    * toLowerCase() -> js функция, переводящая строку в нижний регистр, в данном примере
    * мы переводим в нижний регистр всё, что будет печататься в поле для ввода.
    * При этом не затрагивая рендер компонента на странице, т.е. исходный текст будет таким как в БД.
+   * метод some - работает почти как find, но возвращает false/true если хотябы один объект совпал
    */
   let productCard = items
     .filter((item) => item.title.toLowerCase().includes(searchValue.toLowerCase()))
@@ -142,6 +153,8 @@ function App() {
         price={item.price}
         onClickAddToCart={(obj) => onAddToCart(obj)}
         onAddToFavorites={(obj) => onAddToFavorites(obj)}
+        added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+        favorited={itemsFavorite.some((obj) => Number(obj.id) === Number(item.id))}
       />
     ));
 
@@ -167,6 +180,7 @@ function App() {
             element={
               <Home
                 items={items}
+                cartItems={cartItems}
                 searchValue={searchValue}
                 setSearchValue={setSearchValue}
                 onChangeSearchInput={onChangeSearchInput}

@@ -13,7 +13,7 @@ function Favorites(props) {
       price={item.price}
       onClickAddToCart={props.onClickAddToCart}
       onAddToFavorites={props.onAddToFavorites}
-      favorited={true}
+      favorited
     />
   ));
 

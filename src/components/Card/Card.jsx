@@ -20,9 +20,10 @@ function Card({
   onClickAddToCart,
   onAddToFavorites,
   favorited = false,
+  added = false,
 }) {
   // use method useState from btn addToCart
-  const [isAdded, setIsAdded] = React.useState(false);
+  const [isAdded, setIsAdded] = React.useState(added);
 
   const handleBtnAddCartClick = () => {
     onClickAddToCart({ id, title, imageUrl, price });
