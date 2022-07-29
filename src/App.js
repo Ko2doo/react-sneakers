@@ -8,6 +8,8 @@ import Header from './components/Header/Header';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites/Favorites';
 
+export const AppContext = React.createContext({});
+
 function App() {
   // Передаём в массив данные с mockapi.io (бэкэнда) используя хук useState,
   // дальше распечатываем данные в карточки товаров.
@@ -132,6 +134,11 @@ function App() {
     setSearchValue(''); // при клике на кнопку очистки input`а, верни нам пустую строку в input
   };
 
+  // проверяем наличие добавленных товаров по id, если что то есть, выводим состояние кнопок
+  const isItemAdded = (id) => {
+    return cartItems.some((obj) => Number(obj.id) === Number(id));
+  };
+
   /*
    * Можно сократить код
    * с {cartOpened ? <Drawer onClose={() => setCartOpened(false)} /> : null}
@@ -146,37 +153,37 @@ function App() {
       ) : null}
 
       <main className="main">
-        <Header onClickCart={() => setCartOpened(true)} />
+        <AppContext.Provider value={{ items, cartItems, itemsFavorite, isItemAdded }}>
+          <Header onClickCart={() => setCartOpened(true)} />
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Home
-                items={items}
-                onAddToCart={onAddToCart}
-                onAddToFavorites={onAddToFavorites}
-                cartItems={cartItems}
-                itemsFavorite={itemsFavorite}
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-                onChangeSearchInput={onChangeSearchInput}
-                handlerDrawerInput={handlerDrawerInput}
-                isLoading={isLoading}
-              />
-            }
-            exact></Route>
-          <Route
-            path="/favorites"
-            element={
-              <Favorites
-                itemsFavorite={itemsFavorite}
-                onAddToCart={(obj) => onAddToCart(obj)}
-                onAddToFavorites={(obj) => onAddToFavorites(obj)}
-              />
-            }
-            exact></Route>
-        </Routes>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  items={items}
+                  onAddToCart={onAddToCart}
+                  onAddToFavorites={onAddToFavorites}
+                  itemsFavorite={itemsFavorite}
+                  searchValue={searchValue}
+                  setSearchValue={setSearchValue}
+                  onChangeSearchInput={onChangeSearchInput}
+                  handlerDrawerInput={handlerDrawerInput}
+                  isLoading={isLoading}
+                />
+              }
+              exact></Route>
+            <Route
+              path="/favorites"
+              element={
+                <Favorites
+                  onAddToCart={(obj) => onAddToCart(obj)}
+                  onAddToFavorites={(obj) => onAddToFavorites(obj)}
+                />
+              }
+              exact></Route>
+          </Routes>
+        </AppContext.Provider>
       </main>
     </div>
   );

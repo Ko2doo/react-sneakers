@@ -4,8 +4,6 @@ import Card from '../components/Card/Card';
 function Home({
   items,
   searchValue,
-  itemsFavorite,
-  cartItems,
   onChangeSearchInput,
   handlerDrawerInput,
   onAddToCart,
@@ -34,7 +32,6 @@ function Home({
         key={index}
         onAddToCart={(obj) => onAddToCart(obj)}
         onAddToFavorites={(obj) => onAddToFavorites(obj)}
-        added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
         loading={isLoading}
         {...item} // Грузит id, title, price, imgUrl крч весь объект целиком
       />

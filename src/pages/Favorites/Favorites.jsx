@@ -2,9 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import style from './Favorites.module.scss';
 import Card from '../../components/Card/Card';
+import { AppContext } from '../../App';
 
 function Favorites(props) {
-  let favoriteCard = props.itemsFavorite.map((item) => (
+  const { itemsFavorite } = React.useContext(AppContext);
+
+  let favoriteCard = itemsFavorite.map((item) => (
     <Card
       key={item.id}
       id={item.id}
@@ -17,11 +20,9 @@ function Favorites(props) {
     />
   ));
 
-  let items = props.itemsFavorite;
-
   return (
     <section className={style.content}>
-      {items.length > 0 ? (
+      {itemsFavorite.length > 0 ? (
         <div className={style.content_wrapper}>
           <div className={style.header_bar}>
             <Link to="/" className={style.btn_goback} title="На главную">

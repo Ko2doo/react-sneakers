@@ -74,7 +74,7 @@
 }
 
 
-.btn_add_to_basked{
+.btn_basked{
     width: 32px;
     height: 32px;
     display: inline-flex;
@@ -85,7 +85,7 @@
     border: 1px solid var(--card-button-border-color);
     border-radius: rem(8);
     &__isChecked{
-        @extend .btn_add_to_basked;
+        @extend .btn_basked;
         background: linear-gradient(180deg, #89F09C 0%, #3CC755 100%);
         border-color: transparent;
     }

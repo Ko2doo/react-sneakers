@@ -6,6 +6,7 @@
 
 import React from 'react';
 import ContentLoader from 'react-content-loader';
+import { AppContext } from '../../App';
 import style from './Card.module.scss';
 
 /*
@@ -20,19 +21,16 @@ function Card({
   onAddToCart,
   onAddToFavorites,
   favorited = false,
-  added = false,
   loading = false,
 }) {
-  // use method useState from btn addToCart
-  const [isAdded, setIsAdded] = React.useState(added);
-
-  const handleBtnAddCartClick = () => {
-    onAddToCart({ id, title, imageUrl, price });
-    setIsAdded(!isAdded); // ! - если стоит, то меняем значение с true на false при повторном клике на кнопку.
-  };
+  const { isItemAdded } = React.useContext(AppContext);
 
   // use method useState from btn favorite
   const [isAddedFavorite, setIsAddedFavorite] = React.useState(favorited);
+
+  const handleBtnAddCartClick = () => {
+    onAddToCart({ id, title, imageUrl, price });
+  };
 
   const handleBtnToFavoriteClick = () => {
     onAddToFavorites({ id, title, imageUrl, price });
@@ -86,10 +84,10 @@ function Card({
             </div>
             <button
               onClick={handleBtnAddCartClick}
-              className={isAdded ? style.btn_add_to_basked__isChecked : style.btn_add_to_basked}
-              title={isAdded ? 'Добавлен' : 'Добавить товар в корзину'}>
+              className={isItemAdded(id) ? style.btn_basked__isChecked : style.btn_basked}
+              title={isItemAdded(id) ? 'Добавлен' : 'Добавить товар в корзину'}>
               <img
-                src={isAdded ? '/img/icons/ic-checked.svg' : '/img/icons/ic-add.svg'}
+                src={isItemAdded(id) ? '/img/icons/ic-checked.svg' : '/img/icons/ic-add.svg'}
                 alt="icon"
                 className={style.icon_card}
               />
