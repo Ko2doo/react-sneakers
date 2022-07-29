@@ -109,6 +109,7 @@ function App() {
       }
     } catch (error) {
       alert('Не удалось добавить в фавориты :(');
+      console.error(error);
     }
   };
 
@@ -153,7 +154,8 @@ function App() {
       ) : null}
 
       <main className="main">
-        <AppContext.Provider value={{ items, cartItems, itemsFavorite, isItemAdded }}>
+        <AppContext.Provider
+          value={{ items, cartItems, itemsFavorite, isItemAdded, onAddToFavorites }}>
           <Header onClickCart={() => setCartOpened(true)} />
 
           <Routes>
