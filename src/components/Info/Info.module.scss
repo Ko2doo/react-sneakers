@@ -1,0 +1,73 @@
+@import '../../scss/_helpers.scss';
+
+.cart_state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+}
+
+.emty_box_image {
+  max-width: rem(120);
+  width: 100%;
+  height: rem(120);
+  object-fit: cover;
+}
+
+.title {
+  font-size: em(22);
+  font-weight: 600;
+  line-height: em(26.63);
+  margin-top: rem(21);
+  color: var(--typography-black);
+}
+
+.inform {
+  font-size: em(16);
+  font-weight: 400;
+  line-height: em(24);
+  margin-top: rem(8);
+  color: var(--typography-special);
+}
+
+.btn_goback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin-top: auto;
+  padding: rem(18) rem(20);
+  background-color: var(--def-green);
+  border-radius: rem(18);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition-duration: 0.8s;
+  transition-property: background-color;
+  &:hover {
+    background-color: var(--checkout-hover-background-color);
+
+    .ic_arrow_left {
+      transform: translateX(-5px);
+    }
+  }
+  &:active {
+    background: var(--checkout-active-background-color-gradient);
+  }
+
+  .btn_name {
+    font-size: em(16);
+    font-weight: 600;
+    line-height: em(19);
+    color: var(--def-white);
+  }
+
+  .ic_arrow_left {
+    position: absolute;
+    left: rem(20);
+    transition-duration: 0.8s;
+    transition-property: transform;
+  }
+}
