@@ -5,6 +5,7 @@
 
 import React from 'react';
 import CartItem from '../CartItem/CartItem';
+import { AppContext } from '../../App';
 import Info from '../Info/Info';
 import style from './Drawer.module.scss';
 
@@ -13,6 +14,16 @@ import style from './Drawer.module.scss';
  * объявив что items - по умолчанию является пустым массивом (т.е. корзина по умолчанию пуста).
  */
 function Drawer({ onClose, onRemove, items = [] }) {
+  //hook
+  const { setCartItems } = React.useContext(AppContext);
+  const [isOrderComplete, setIsOrderComplete] = React.useState(false);
+
+  // отслеживаем нажатие кнопки заказа товара
+  const onClickOrder = () => {
+    setIsOrderComplete(true);
+    setCartItems([]);
+  };
+
   // cartItem card
   let cartItem = items.map((obj) => (
     <CartItem
@@ -57,7 +68,10 @@ function Drawer({ onClose, onRemove, items = [] }) {
                 </li>
               </ul>
 
-              <button className={style.btn_checkout} title="Нажмите чтобы перейти к оформлению">
+              <button
+                onClick={onClickOrder}
+                className={style.btn_checkout}
+                title="Нажмите чтобы перейти к оформлению">
                 <span className={style.txt}>Оформить заказ</span>
                 <img
                   src="/img/icons/ic-arrow-right.svg"
@@ -70,9 +84,13 @@ function Drawer({ onClose, onRemove, items = [] }) {
         ) : (
           <main className={style.content}>
             <Info
-              title="Корзина пустая"
-              description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
-              imageUrl="/img/icons/box.svg"
+              title={isOrderComplete ? 'Заказ Оформлен' : 'Корзина пустая'}
+              description={
+                isOrderComplete
+                  ? 'Ваш заказ {title} скоро будет передан курьерской доставке'
+                  : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
+              }
+              imageUrl={isOrderComplete ? '/img/icons/ic-order-complite.png' : '/img/icons/box.svg'}
             />
           </main>
         )}
