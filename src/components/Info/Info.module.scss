@@ -10,9 +10,8 @@
 }
 
 .emty_box_image {
-  max-width: rem(120);
-  width: 100%;
-  height: rem(120);
+  width: fit-content;
+  height: auto;
   object-fit: cover;
 }
 
