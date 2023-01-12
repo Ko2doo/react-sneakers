@@ -8,6 +8,7 @@ import Header from './components/Header/Header';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites/Favorites';
 
+// импорт константы контекст
 export const AppContext = React.createContext({});
 
 function App() {
@@ -149,13 +150,13 @@ function App() {
 
   return (
     <div className="wrapper">
-      {cartOpened ? (
-        <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />
-      ) : null}
+      <AppContext.Provider
+        value={{ items, cartItems, itemsFavorite, isItemAdded, onAddToFavorites, setCartOpened }}>
+        {cartOpened ? (
+          <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />
+        ) : null}
 
-      <main className="main">
-        <AppContext.Provider
-          value={{ items, cartItems, itemsFavorite, isItemAdded, onAddToFavorites }}>
+        <main className="main">
           <Header onClickCart={() => setCartOpened(true)} />
 
           <Routes>
@@ -185,8 +186,8 @@ function App() {
               }
               exact></Route>
           </Routes>
-        </AppContext.Provider>
-      </main>
+        </main>
+      </AppContext.Provider>
     </div>
   );
 }

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import CartItem from '../CartItem/CartItem';
+import Info from '../Info/Info';
 import style from './Drawer.module.scss';
 
 /*
@@ -68,21 +69,11 @@ function Drawer({ onClose, onRemove, items = [] }) {
           </main>
         ) : (
           <main className={style.content}>
-            <div className={style.cart_empty}>
-              <img className={style.emty_box_image} src="/img/icons/box.svg" alt="Empty Box" />
-              <h2 className={style.title}>Корзина пустая</h2>
-              <p className={style.inform}>
-                Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.
-              </p>
-              <button onClick={onClose} className={style.btn_goback} title="Вернуться назад">
-                <span className={style.btn_name}>Вернуться назад</span>
-                <img
-                  className={style.ic_arrow_left}
-                  src="/img/icons/ic-arrow-left.svg"
-                  alt="Icon item"
-                />
-              </button>
-            </div>
+            <Info
+              title="Корзина пустая"
+              description="Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ."
+              imageUrl="/img/icons/box.svg"
+            />
           </main>
         )}
       </aside>
