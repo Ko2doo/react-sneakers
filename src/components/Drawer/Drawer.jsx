@@ -4,9 +4,12 @@
  */
 
 import React from 'react';
+import axios from 'axios';
+
 import CartItem from '../CartItem/CartItem';
 import { AppContext } from '../../App';
 import Info from '../Info/Info';
+
 import style from './Drawer.module.scss';
 
 /*
@@ -15,13 +18,28 @@ import style from './Drawer.module.scss';
  */
 function Drawer({ onClose, onRemove, items = [] }) {
   //hook
-  const { setCartItems } = React.useContext(AppContext);
+  const { cartItems, setCartItems } = React.useContext(AppContext);
+  const [orderId, setOrderId] = React.useState(null);
   const [isOrderComplete, setIsOrderComplete] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   // отслеживаем нажатие кнопки заказа товара
-  const onClickOrder = () => {
-    setIsOrderComplete(true);
-    setCartItems([]);
+  const onClickOrder = async () => {
+    try {
+      setIsLoading(true);
+
+      const { data } = await axios.post('/orders', {
+        items: cartItems,
+      });
+
+      setOrderId(data.id);
+      setIsOrderComplete(true);
+      setCartItems([]);
+    } catch (error) {
+      alert('Не удалось создать заказ :(');
+    }
+
+    setIsLoading(false);
   };
 
   // cartItem card
@@ -69,6 +87,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
               </ul>
 
               <button
+                disabled={isLoading}
                 onClick={onClickOrder}
                 className={style.btn_checkout}
                 title="Нажмите чтобы перейти к оформлению">
@@ -87,7 +106,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
               title={isOrderComplete ? 'Заказ Оформлен' : 'Корзина пустая'}
               description={
                 isOrderComplete
-                  ? 'Ваш заказ {title} скоро будет передан курьерской доставке'
+                  ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
                   : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
               }
               imageUrl={isOrderComplete ? '/img/icons/ic-order-complite.png' : '/img/icons/box.svg'}

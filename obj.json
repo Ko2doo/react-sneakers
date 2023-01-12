@@ -1,0 +1,85 @@
+{
+  "items":[
+    {
+      "id": 0,
+      "title": "Мужские Кроссовки Nike Blazer Mid Suede",
+      "price": 24.44,
+      "imageUrl": "/img/items/item1.png"
+    },
+    {
+      "id": 1,
+      "title": "Мужские Кроссовки Nike Air Max 270",
+      "price": 22.44,
+      "imageUrl": "/img/items/item2.png"
+    },
+    {
+      "id": 2,
+      "title": "Мужские Кроссовки Nike Blazer Mid Suede",
+      "price": 30,
+      "imageUrl": "/img/items/item3.png"
+    },
+    {
+      "id": 3,
+      "title": "Кроссовки Puma X Aka Boku Future Rider",
+      "price": 45.2,
+      "imageUrl": "/img/items/item4.png"
+    },
+    {
+      "id": 4,
+      "title": "Мужские Кроссовки Under Armour Curry 8",
+      "price": 26.6,
+      "imageUrl": "/img/items/item5.png"
+    },
+    {
+      "id": 5,
+      "title": "Мужские Кроссовки Nike Kyrie 7",
+      "price": 60,
+      "imageUrl": "/img/items/item6.png"
+    },
+    {
+      "id": 6,
+      "title": "Мужские Кроссовки Jordan Air Jordan 11",
+      "price": 1000,
+      "imageUrl": "/img/items/item7.png"
+    },
+    {
+      "id": 7,
+      "title": "Мужские Кроссовки Nike LeBron XVIII",
+      "price": 18.99,
+      "imageUrl": "/img/items/item8.png"
+    },
+    {
+      "id": 8,
+      "title": "Мужские Кроссовки Nike Lebron XVIII Low",
+      "price": 35.44,
+      "imageUrl": "/img/items/item9.png"
+    },
+    {
+      "id": 9,
+      "title": "Мужские Кроссовки Nike Blazer Mid Suede",
+      "price": 22.22,
+      "imageUrl": "/img/items/item10.png"
+    },
+    {
+      "id": 10,
+      "title": "Кроссовки Puma X Aka Boku Future Rider",
+      "price": 18.99,
+      "imageUrl": "/img/items/item11.png"
+    },
+    {
+      "id": 11,
+      "title": "Мужские Кроссовки Nike Kyrie Flytrap IV",
+      "price": 34.44,
+      "imageUrl": "/img/items/item12.png"
+    },
+    {
+      "id": 12,
+      "title": "Мужские Кроссовки Nike Kyrie Flytrap IV",
+      "price": 34.44,
+      "imageUrl": "/img/items/item12.png"
+    }
+  ],
+  "cart": [],
+  "favorites": [],
+  "orders": []
+}
