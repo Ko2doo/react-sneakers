@@ -29,7 +29,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
     try {
       setIsLoading(true);
 
-      const { data } = await axios.post('/orders', {
+      const { data } = await axios.post('https://63c13cbd99c0a15d28e4c103.mockapi.io/orders', {
         items: cartItems,
       });
 
@@ -38,6 +38,8 @@ function Drawer({ onClose, onRemove, items = [] }) {
       setCartItems([]);
     } catch (error) {
       alert('Не удалось создать заказ :(');
+
+      console.error(error);
     }
 
     setIsLoading(false);

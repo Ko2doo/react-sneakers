@@ -21,7 +21,7 @@ function Orders() {
     // Самовызывающаяся асинхронная функция
     (async () => {
       try {
-        const { data } = await axios.get('/orders');
+        const { data } = await axios.get('https://63c13cbd99c0a15d28e4c103.mockapi.io/orders');
 
         // console.log(data.reduce((prev, obj) => [...prev, ...obj.items], []));
         setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
@@ -46,14 +46,34 @@ function Orders() {
   return (
     <section className={style.content}>
       <div className={style.content_wrapper}>
-        <div className={style.header_bar}>
-          <Link to="/" className={style.btn_goback} title="На главную">
-            <img className={style.btn_icon} src="/img/icons/ic-right.svg" alt="icon item" />
-          </Link>
-          <h1 className={style.content_title}>Мои Заказы</h1>
-        </div>
+        {orders.length > 0 ? (
+          <React.Fragment>
+            <div className={style.header_bar}>
+              <Link to="/" className={style.btn_goback} title="На главную">
+                <img className={style.btn_icon} src="/img/icons/ic-right.svg" alt="icon item" />
+              </Link>
+              <h1 className={style.content_title}>Мои Заказы</h1>
+            </div>
 
-        {renderOrders}
+            {renderOrders}
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <div className={style.empty_section}>
+              <img src="/img/icons/emoji.svg" alt="плак плак" />
+              <h1 className={style.empty_title}>У вас нет заказов</h1>
+              <p className={style.empty_subtitle}>Слышь, купи!</p>
+              <Link to="/" className={style.link_goback} title="Вернуться назад">
+                <span className={style.btn_name}>Вернуться назад</span>
+                <img
+                  className={style.ic_arrow_left}
+                  src="/img/icons/ic-arrow-left.svg"
+                  alt="Icon item"
+                />
+              </Link>
+            </div>
+          </React.Fragment>
+        )}
       </div>
     </section>
   );
