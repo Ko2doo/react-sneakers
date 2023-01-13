@@ -65,7 +65,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
 
           <button onClick={onClose} className={style.btn_close} title="Закрыть корзину">
             <img
-              src="/img/icons/ic-delete_this_item.svg"
+              src="img/icons/ic-delete_this_item.svg"
               alt="Exit cart"
               className={style.ic_delete_this_item}
             />
@@ -96,7 +96,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
                 title="Нажмите чтобы перейти к оформлению">
                 <span className={style.txt}>Оформить заказ</span>
                 <img
-                  src="/img/icons/ic-arrow-right.svg"
+                  src="img/icons/ic-arrow-right.svg"
                   alt="icon arrow right"
                   className={style.ic_arrow_right}
                 />
@@ -112,7 +112,7 @@ function Drawer({ onClose, onRemove, items = [] }) {
                   ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
                   : 'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'
               }
-              imageUrl={isOrderComplete ? '/img/icons/ic-order-complite.png' : '/img/icons/box.svg'}
+              imageUrl={isOrderComplete ? 'img/icons/ic-order-complite.png' : 'img/icons/box.svg'}
             />
           </main>
         )}

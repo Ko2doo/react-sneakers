@@ -23,7 +23,7 @@ export const Info = ({ imageUrl, title, description }) => {
         className={style.btn_goback}
         title="Вернуться назад">
         <span className={style.btn_name}>Вернуться назад</span>
-        <img className={style.ic_arrow_left} src="/img/icons/ic-arrow-left.svg" alt="Icon item" />
+        <img className={style.ic_arrow_left} src="img/icons/ic-arrow-left.svg" alt="Icon item" />
       </button>
     </div>
   );

@@ -50,7 +50,7 @@ function Orders() {
           <React.Fragment>
             <div className={style.header_bar}>
               <Link to="/" className={style.btn_goback} title="На главную">
-                <img className={style.btn_icon} src="/img/icons/ic-right.svg" alt="icon item" />
+                <img className={style.btn_icon} src="img/icons/ic-right.svg" alt="icon item" />
               </Link>
               <h1 className={style.content_title}>Мои Заказы</h1>
             </div>
@@ -60,14 +60,14 @@ function Orders() {
         ) : (
           <React.Fragment>
             <div className={style.empty_section}>
-              <img src="/img/icons/emoji.svg" alt="плак плак" />
+              <img src="img/icons/emoji.svg" alt="плак плак" />
               <h1 className={style.empty_title}>У вас нет заказов</h1>
               <p className={style.empty_subtitle}>Слышь, купи!</p>
               <Link to="/" className={style.link_goback} title="Вернуться назад">
                 <span className={style.btn_name}>Вернуться назад</span>
                 <img
                   className={style.ic_arrow_left}
-                  src="/img/icons/ic-arrow-left.svg"
+                  src="img/icons/ic-arrow-left.svg"
                   alt="Icon item"
                 />
               </Link>

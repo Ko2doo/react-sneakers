@@ -68,8 +68,8 @@ function Card({
               <img
                 src={
                   isAddedFavorite
-                    ? '/img/icons/ic-heart-liked.svg'
-                    : '/img/icons/ic-heart-onliked.png'
+                    ? 'img/icons/ic-heart-liked.svg'
+                    : 'img/icons/ic-heart-onliked.png'
                 }
                 alt="Onliked"
               />
@@ -92,7 +92,7 @@ function Card({
                 className={isItemAdded(id) ? style.btn_basked__isChecked : style.btn_basked}
                 title={isItemAdded(id) ? 'Добавлен' : 'Добавить товар в корзину'}>
                 <img
-                  src={isItemAdded(id) ? '/img/icons/ic-checked.svg' : '/img/icons/ic-add.svg'}
+                  src={isItemAdded(id) ? 'img/icons/ic-checked.svg' : 'img/icons/ic-add.svg'}
                   alt="icon"
                   className={style.icon_card}
                 />

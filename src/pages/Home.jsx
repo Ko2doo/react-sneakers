@@ -46,12 +46,12 @@ function Home({
         </h1>
 
         <div className="search_block">
-          <img src="/img/icons/ic-search.svg" alt="searching icon..." className="icon_search" />
+          <img src="img/icons/ic-search.svg" alt="searching icon..." className="icon_search" />
 
           {searchValue ? (
             <button onClick={handlerDrawerInput} className="btn_dwar" title="Очистить поле ввода">
               <img
-                src="/img/icons/ic-delete_this_item.svg"
+                src="img/icons/ic-delete_this_item.svg"
                 alt="Draw input"
                 className="ic_delete_this_item"
               />

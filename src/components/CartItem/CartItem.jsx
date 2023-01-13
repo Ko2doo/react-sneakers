@@ -17,7 +17,7 @@ function CartItem(props) {
       </div>
       <button onClick={props.onRemove} className={style.btn_remove} title="Удалить из корзины">
         <img
-          src="/img/icons/ic-delete_this_item.svg"
+          src="img/icons/ic-delete_this_item.svg"
           alt="Delete this item"
           className={style.ic_delete_this_item}
         />
