@@ -14,7 +14,7 @@ function Header(props) {
   return (
     <header className={style.header}>
       <div className={style.link_element}>
-        <Link to="/" className={style.link_to_generalpage}>
+        <Link to="/react-sneakers" className={style.link_to_generalpage}>
           <img src="img/icons/ic-sneakers.svg" alt="Sneakers logotype" className={style.ic_logo} />
 
           <div className={style.market_name}>

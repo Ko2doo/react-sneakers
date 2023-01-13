@@ -25,7 +25,7 @@ function Favorites(props) {
       {itemsFavorite.length > 0 ? (
         <div className={style.content_wrapper}>
           <div className={style.header_bar}>
-            <Link to="/" className={style.btn_goback} title="На главную">
+            <Link to="/react-sneakers" className={style.btn_goback} title="На главную">
               <img className={style.btn_icon} src="img/icons/ic-right.svg" alt="icon item" />
             </Link>
             <h1 className={style.content_title}>Мои закладки</h1>
@@ -38,7 +38,7 @@ function Favorites(props) {
             <img src="img/icons/emoji.svg" alt="плак плак" />
             <h1 className={style.empty_title}>Ничего нет</h1>
             <p className={style.empty_subtitle}>Вы ничего не добавили в избранное</p>
-            <Link to="/" className={style.link_goback} title="Вернуться назад">
+            <Link to="/react-sneakers" className={style.link_goback} title="Вернуться назад">
               <span className={style.btn_name}>Вернуться назад</span>
               <img
                 className={style.ic_arrow_left}
