@@ -135,8 +135,10 @@ function App() {
     // Или добавляем в избранное
     try {
       if (itemsFavorite.find((favObj) => Number(favObj.id) === Number(obj.id))) {
-        axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${obj.id}`); // удаляем с сервера
-        setItemsFavorite((prev) => prev.filter((favObj) => Number(favObj.id) !== Number(obj.id)));
+        await axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/favorite/${obj.id}`); // удаляем с сервера
+        // setItemsFavorite((prev) => prev.filter((favObj) => Number(favObj.id) !== Number(obj.id)));
+        setItemsFavorite((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+
         console.log('Удалено из избранного:' + obj.id);
       } else {
         const { data } = await axios.post(
@@ -144,6 +146,7 @@ function App() {
           obj,
         );
         setItemsFavorite((prev) => [...prev, data]);
+
         console.log('Добавлено в избранное:' + obj.id);
       }
     } catch (error) {
