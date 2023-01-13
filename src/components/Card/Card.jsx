@@ -28,12 +28,15 @@ function Card({
   // use method useState from btn favorite
   const [isAddedFavorite, setIsAddedFavorite] = React.useState(favorited);
 
+  // храним данные для формирования массива
+  const itemObj = { id, parentId: id, title, imageUrl, price };
+
   const handleBtnAddCartClick = () => {
-    onAddToCart({ id, title, imageUrl, price });
+    onAddToCart(itemObj);
   };
 
   const handleBtnToFavoriteClick = () => {
-    onAddToFavorites({ id, title, imageUrl, price });
+    onAddToFavorites(itemObj);
     setIsAddedFavorite(!isAddedFavorite);
   };
 
@@ -82,16 +85,19 @@ function Card({
               <span>Цена:</span>
               <b> {price} $</b>
             </div>
-            <button
-              onClick={handleBtnAddCartClick}
-              className={isItemAdded(id) ? style.btn_basked__isChecked : style.btn_basked}
-              title={isItemAdded(id) ? 'Добавлен' : 'Добавить товар в корзину'}>
-              <img
-                src={isItemAdded(id) ? '/img/icons/ic-checked.svg' : '/img/icons/ic-add.svg'}
-                alt="icon"
-                className={style.icon_card}
-              />
-            </button>
+            {/* Условие, если есть в пропсах onAddToCart, то отображаем кнопку. */}
+            {onAddToCart && (
+              <button
+                onClick={handleBtnAddCartClick}
+                className={isItemAdded(id) ? style.btn_basked__isChecked : style.btn_basked}
+                title={isItemAdded(id) ? 'Добавлен' : 'Добавить товар в корзину'}>
+                <img
+                  src={isItemAdded(id) ? '/img/icons/ic-checked.svg' : '/img/icons/ic-add.svg'}
+                  alt="icon"
+                  className={style.icon_card}
+                />
+              </button>
+            )}
           </div>
         </React.Fragment>
       )}

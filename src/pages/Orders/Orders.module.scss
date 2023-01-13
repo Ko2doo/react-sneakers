@@ -1,0 +1,43 @@
+@import '../../scss/_helpers.scss';
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: rem(40);
+}
+
+.header_bar {
+  display: flex;
+  align-items: center;
+  padding-left: rem(20);
+  width: 100%;
+}
+
+.btn_goback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: rem(35);
+  width: 100%;
+  height: rem(35);
+  cursor: pointer;
+  border: rem(1) solid var(--card-button-border-color);
+  border-radius: rem(8);
+  background-color: var(--def-white);
+}
+
+.content_title {
+  font-size: rem(32);
+  font-weight: 700;
+  line-height: em(39);
+  margin-left: rem(21);
+  color: var(--typography-black);
+}
+
+.content_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 90%;
+}

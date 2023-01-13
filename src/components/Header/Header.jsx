@@ -27,7 +27,10 @@ function Header(props) {
       <nav className={style.navbar}>
         <ul className={style.userbar}>
           <li className={style.userbar_item}>
-            <button onClick={props.onClickCart} className={style.btn_drawer}>
+            <button
+              onClick={props.onClickCart}
+              className={style.btn_drawer}
+              title="Нажмите для открытия корзины">
               <img src="/img/icons/ic-card.svg" alt="cart" className={style.ic_card} />
               <span>{totalPrice}$</span>
             </button>
@@ -38,7 +41,9 @@ function Header(props) {
             </Link>
           </li>
           <li className={style.userbar_item}>
-            <img src="/img/icons/ic-userbar.svg" alt="user" className={style.ic_userbar} />
+            <Link title="Переход к покупкам" className={style.favorite_link} to="/orders">
+              <img src="/img/icons/ic-userbar.svg" alt="user" className={style.ic_userbar} />
+            </Link>
           </li>
         </ul>
       </nav>

@@ -7,6 +7,7 @@ import Drawer from './components/Drawer/Drawer';
 import Header from './components/Header/Header';
 import Home from './pages/Home';
 import Favorites from './pages/Favorites/Favorites';
+import Orders from './pages/Orders/Orders';
 
 // импорт константы контекст
 export const AppContext = React.createContext({});
@@ -57,17 +58,30 @@ function App() {
      * сначала грузим состояние корзины, после состояние избранных товаров, и только потом сами карточки на гл стр.
      */
     async function fetchData() {
-      const cartResponse = await axios.get('https://62cff469d9bf9f1705801797.mockapi.io/cart');
-      const favoritesResponse = await axios.get(
-        'https://62cff469d9bf9f1705801797.mockapi.io/favorite',
-      );
-      const itemsResponse = await axios.get('https://62cff469d9bf9f1705801797.mockapi.io/items');
+      try {
+        // можно так
+        // const cartResponse = await axios.get('https://62cff469d9bf9f1705801797.mockapi.io/cart');
+        // const favoritesResponse = await axios.get(
+        //   'https://62cff469d9bf9f1705801797.mockapi.io/favorite',
+        // );
+        // const itemsResponse = await axios.get('https://62cff469d9bf9f1705801797.mockapi.io/items');
 
-      setIsLoading(false);
+        // а можно и так (используется Promise.all()):
+        const [cartResponse, favoritesResponse, itemsResponse] = await Promise.all([
+          axios.get('https://62cff469d9bf9f1705801797.mockapi.io/cart'),
+          axios.get('https://62cff469d9bf9f1705801797.mockapi.io/favorite'),
+          axios.get('https://62cff469d9bf9f1705801797.mockapi.io/items'),
+        ]);
 
-      setCartItems(cartResponse.data); // Запрашиваем данные корзины товаров с сервера
-      setItemsFavorite(favoritesResponse.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
-      setItems(itemsResponse.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
+        setIsLoading(false);
+
+        setCartItems(cartResponse.data); // Запрашиваем данные корзины товаров с сервера
+        setItemsFavorite(favoritesResponse.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
+        setItems(itemsResponse.data); // Запрашиваем данные карточек товаров для гл страницы с сервера
+      } catch (error) {
+        alert('Ошибка при запросе данных ;(');
+        console.error(error);
+      }
     }
 
     fetchData();
@@ -87,6 +101,7 @@ function App() {
       }
     } catch (error) {
       alert('Не удалось добавить в корзину :(');
+      console.error(error);
     }
   };
 
@@ -116,14 +131,19 @@ function App() {
 
   // функция удаления товара из корзины
   const onRemoveItem = (id) => {
-    axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`); // удаляем с сервера
+    try {
+      axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${id}`); // удаляем с сервера
 
-    /*
-     * с помощью filter фильтруем данные в массиве.
-     * дай мне предыдущий массив, возьми всё что в нем есть отфильтруй,
-     * и удали id того элемента который я передал через функцию при клике на кнопку
-     */
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
+      /*
+       * с помощью filter фильтруем данные в массиве.
+       * дай мне предыдущий массив, возьми всё что в нем есть отфильтруй,
+       * и удали id того элемента который я передал через функцию при клике на кнопку
+       */
+      setCartItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      alert('Ошибка удаления товара из корзины ;(');
+      console.error(error);
+    }
   };
 
   // Метод для извлечения данных из input для поиска данных
@@ -156,6 +176,7 @@ function App() {
           cartItems,
           itemsFavorite,
           isItemAdded,
+          onAddToCart,
           onAddToFavorites,
           setCartOpened,
           setCartItems,
@@ -188,6 +209,16 @@ function App() {
               path="/favorites"
               element={
                 <Favorites
+                  onAddToCart={(obj) => onAddToCart(obj)}
+                  onAddToFavorites={(obj) => onAddToFavorites(obj)}
+                />
+              }
+              exact></Route>
+
+            <Route
+              path="/orders"
+              element={
+                <Orders
                   onAddToCart={(obj) => onAddToCart(obj)}
                   onAddToFavorites={(obj) => onAddToFavorites(obj)}
                 />
