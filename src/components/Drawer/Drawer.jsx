@@ -5,9 +5,9 @@
 
 import React from 'react';
 import axios from 'axios';
+import { useCart } from '../../hooks/useCart';
 
 import CartItem from '../CartItem/CartItem';
-import { AppContext } from '../../App';
 import Info from '../Info/Info';
 
 import style from './Drawer.module.scss';
@@ -18,7 +18,8 @@ import style from './Drawer.module.scss';
  */
 function Drawer({ onClose, onRemove, items = [] }) {
   //hook
-  const { cartItems, setCartItems } = React.useContext(AppContext);
+  const { cartItems, setCartItems, totalPrice } = useCart();
+
   const [orderId, setOrderId] = React.useState(null);
   const [isOrderComplete, setIsOrderComplete] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -76,12 +77,12 @@ function Drawer({ onClose, onRemove, items = [] }) {
               <ul className={style.summary_list}>
                 <li className={style.summary_list_item}>
                   <span className={style.total_price}>
-                    Итого: <div className={style.dashed}></div> <b>35.99$</b>
+                    Итого: <div className={style.dashed}></div> <b>{totalPrice}$</b>
                   </span>
                 </li>
                 <li className={style.summary_list_item}>
                   <span className={style.from_nds}>
-                    Налог 5%: <div className={style.dashed}></div> <b>1.5$</b>
+                    Налог 5%: <div className={style.dashed}></div> <b>{(totalPrice / 100) * 5}$</b>
                   </span>
                 </li>
               </ul>
