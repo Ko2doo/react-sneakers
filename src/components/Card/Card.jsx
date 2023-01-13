@@ -29,14 +29,14 @@ function Card({
   const [isAddedFavorite, setIsAddedFavorite] = React.useState(favorited);
 
   // храним данные для формирования массива
-  const itemObj = { id, parentId: id, title, imageUrl, price };
+  const obj = { id, parentId: id, title, imageUrl, price };
 
   const handleBtnAddCartClick = () => {
-    onAddToCart(itemObj);
+    onAddToCart(obj);
   };
 
   const handleBtnToFavoriteClick = () => {
-    onAddToFavorites(itemObj);
+    onAddToFavorites(obj);
     setIsAddedFavorite(!isAddedFavorite);
   };
 

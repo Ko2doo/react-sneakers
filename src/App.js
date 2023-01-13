@@ -88,16 +88,39 @@ function App() {
   }, []);
 
   // функция добавления карточек в корзину post -> отправили данные на сервер
-  const onAddToCart = (obj) => {
+  // Ищем объект в корзине (если добавили) и передаём данные на сервер
+  const onAddToCart = async (obj) => {
     try {
-      if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
-        axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${obj.id}`);
-        setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id))); // сравниваем id, если не равно, сносим.
-        console.log('Удалено из корзины: ' + obj.id);
+      const findItem = cartItems.find((item) => Number(item.parentId) === Number(obj.id)); // Ищем объект с parentId -> если находим так же - сносим, или добавляем.
+
+      if (findItem) {
+        setCartItems((prev) => prev.filter((item) => Number(item.parentId) !== Number(obj.id))); // сравниваем id, если не равно, сносим.
+        await axios.delete(`https://62cff469d9bf9f1705801797.mockapi.io/cart/${findItem.id}`);
+
+        console.log(`Удалено из корзины: id${obj.id} parentId${obj.parentId}`);
       } else {
-        axios.post('https://62cff469d9bf9f1705801797.mockapi.io/cart/', obj);
-        setCartItems((prev) => [...prev, obj]); // заменяем данные в массиве с помощью ...; т.е. [...имя_функции, что_добавить] еще погуглить про функцию prev
-        console.log('Добавлено в корзину: ' + obj.id);
+        setCartItems((prev) => [...prev, obj]); // ждем ответа от бэкэнда
+        const { data } = await axios.post('https://62cff469d9bf9f1705801797.mockapi.io/cart/', obj); // ждём ответа от сервера
+        // setCartItems((prev) => [...prev, data]); // заменяем данные в массиве с помощью ...; т.е. [...имя_функции, что_добавить] еще погуглить про функцию prev
+
+        // после ответа бэкэнда, обновляем массив:
+        /*
+         *   в условии ниже сравниваем parentId с бэкэнда с parendId из корзины (state)
+         *   если равно, то заменяем на новый объект, иначе возвращаем item
+         **/
+        setCartItems((prev) =>
+          prev.map((item) => {
+            if (item.parentId === data.parentId) {
+              return {
+                ...item,
+                id: data.id,
+              };
+            }
+            return item;
+          }),
+        );
+
+        console.log(`Добавлено в корзину: id${obj.id} parentId${obj.parentId}`);
       }
     } catch (error) {
       alert('Не удалось добавить в корзину :(');
@@ -139,7 +162,7 @@ function App() {
        * дай мне предыдущий массив, возьми всё что в нем есть отфильтруй,
        * и удали id того элемента который я передал через функцию при клике на кнопку
        */
-      setCartItems((prev) => prev.filter((item) => item.id !== id));
+      setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(id)));
     } catch (error) {
       alert('Ошибка удаления товара из корзины ;(');
       console.error(error);
@@ -158,7 +181,7 @@ function App() {
 
   // проверяем наличие добавленных товаров по id, если что то есть, выводим состояние кнопок
   const isItemAdded = (id) => {
-    return cartItems.some((obj) => Number(obj.id) === Number(id));
+    return cartItems.some((obj) => Number(obj.parentId) === Number(id)); // пробегаем по массиву корзины и вытаскиваем оттуда parrentId сверяем его с id карточки
   };
 
   /*
@@ -194,12 +217,13 @@ function App() {
               element={
                 <Home
                   items={items}
-                  onAddToCart={onAddToCart}
-                  onAddToFavorites={onAddToFavorites}
-                  itemsFavorite={itemsFavorite}
+                  cartItems={cartItems}
                   searchValue={searchValue}
                   setSearchValue={setSearchValue}
                   onChangeSearchInput={onChangeSearchInput}
+                  onAddToCart={onAddToCart}
+                  onAddToFavorites={onAddToFavorites}
+                  itemsFavorite={itemsFavorite}
                   handlerDrawerInput={handlerDrawerInput}
                   isLoading={isLoading}
                 />
