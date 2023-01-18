@@ -1,59 +1,67 @@
-.content{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: rem(40);
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: rem(40);
 
-    &_title{
-        display: flex;
-        margin-left: rem(20);
-        font-size: em(32);
-        font-weight: 700;
-        line-height: em(39);
-        color: var(--typography-black);
-    }
+  &_title {
+    display: flex;
+    margin-left: rem(20);
+    font-size: em(32);
+    font-weight: 700;
+    line-height: em(39);
+    color: var(--typography-black);
+  }
+
+  @media screen and (max-width: 996px) {
+    padding: rem(40) rem(15);
+  }
 }
 
-.page_content{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.page_content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.title_bar{
+.title_bar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search_block {
+  display: flex;
+  align-items: center;
+  position: relative;
+  border: 1px solid var(--popular-border-color);
+  border-radius: rem(10);
+
+  @media screen and (max-width: 712px) {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
+  }
 }
 
-.search_block{
-    display: flex;
-    align-items: center;
-    position: relative;
-    border: 1px solid var(--popular-border-color);
-    border-radius: rem(10);
+.input_item {
+  max-width: 250px;
+  width: 100%;
+  text-align: left;
+  font-size: em(16);
+  font-weight: 400;
+  line-height: em(17);
+  padding: rem(15) rem(18);
+  position: relative;
+  border: none;
+  border-radius: rem(10);
+  color: var(--input-text-color);
+  &:focus-visible {
+    outline: none;
+  }
 }
 
-.input_item{
-    max-width: 250px;
-    width: 100%;
-    text-align: left;
-    font-size: em(16);
-    font-weight: 400;
-    line-height: em(17);
-    padding: rem(15) rem(18);
-    position: relative;
-    border: none;
-    border-radius: rem(10);
-    color: var(--input-text-color);
-    &:focus-visible{
-        outline: none;
-    }
-}
-
-.icon_search{
-    margin-left: rem(18);
+.icon_search {
+  margin-left: rem(18);
 }

@@ -1,20 +1,24 @@
 @import '../../scss/_helpers.scss';
 
-.content{
+.content {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   padding: rem(40);
+
+  @media screen and (max-width: 996px) {
+    padding: rem(40) rem(15);
+  }
 }
 
-.header_bar{
+.header_bar {
   display: flex;
   align-items: center;
   padding-left: rem(20);
   width: 100%;
 }
 
-.btn_goback{
+.btn_goback {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -27,7 +31,7 @@
   background-color: var(--def-white);
 }
 
-.content_title{
+.content_title {
   font-size: rem(32);
   font-weight: 700;
   line-height: em(39);
@@ -35,14 +39,14 @@
   color: var(--typography-black);
 }
 
-.content_wrapper{
+.content_wrapper {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   height: 90%;
 }
 
-.empty_section{
+.empty_section {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,7 +54,7 @@
   width: 100%;
 }
 
-.empty_title{
+.empty_title {
   font-weight: 600;
   font-size: rem(24);
   line-height: rem(29);
@@ -58,7 +62,7 @@
   color: var(--typography-black);
 }
 
-.empty_subtitle{
+.empty_subtitle {
   font-weight: 400;
   font-size: rem(16);
   line-height: rem(19);
@@ -66,7 +70,7 @@
   color: var(--typography-special);
 }
 
-.link_goback{
+.link_goback {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -82,29 +86,28 @@
   cursor: pointer;
   transition-duration: 0.8s;
   transition-property: background-color;
-  &:hover{
-      background-color: var(--checkout-hover-background-color);
+  &:hover {
+    background-color: var(--checkout-hover-background-color);
 
-      .ic_arrow_left{
-          transform: translateX(-5px);
-      }
-      
+    .ic_arrow_left {
+      transform: translateX(-5px);
+    }
   }
-  &:active{
-      background: var(--checkout-active-background-color-gradient);
-  }
-
-  .btn_name{
-      font-size: em(16);
-      font-weight: 600;
-      line-height: em(19);
-      color: var(--def-white);
+  &:active {
+    background: var(--checkout-active-background-color-gradient);
   }
 
-  .ic_arrow_left{
-      position: absolute;
-      left: rem(20);
-      transition-duration: 0.8s;
-      transition-property: transform;
+  .btn_name {
+    font-size: em(16);
+    font-weight: 600;
+    line-height: em(19);
+    color: var(--def-white);
+  }
+
+  .ic_arrow_left {
+    position: absolute;
+    left: rem(20);
+    transition-duration: 0.8s;
+    transition-property: transform;
   }
 }

@@ -5,6 +5,10 @@
   flex-wrap: wrap;
   width: 100%;
   padding: rem(40);
+
+  @media screen and (max-width: 996px) {
+    padding: rem(40) rem(15);
+  }
 }
 
 .header_bar {

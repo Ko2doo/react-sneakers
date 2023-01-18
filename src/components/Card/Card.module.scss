@@ -1,7 +1,6 @@
 @import '../../scss/_helpers.scss';
 
-
-.card{
+.card {
   width: calc(100% / 4 - #{rem(42)});
   min-height: 275px;
   display: flex;
@@ -14,84 +13,97 @@
   transition-duration: 0.3s;
   transition-property: transform, box-shadow, border;
   transition-timing-function: ease-in-out;
-  &:hover{
-      transform: translate(0, -4px);
-      box-shadow: 0px 0px 6px 5px #f8f8f8;
-      border: 1px solid #F8F8F8;
+  &:hover {
+    transform: translate(0, -4px);
+    box-shadow: 0px 0px 6px 5px #f8f8f8;
+    border: 1px solid #f8f8f8;
   }
 
-  &_headerbar{
-      display: flex;
-      flex-wrap: wrap;
-      padding: rem(4) 0;
+  &_headerbar {
+    display: flex;
+    flex-wrap: wrap;
+    padding: rem(4) 0;
   }
 
-  &_preview{
-      max-width: 133px;
-      width: 100%;
-      height: auto;
-      object-fit: cover;
+  &_preview {
+    max-width: 133px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
-  &_prodname{
-      font-size: em(14);
-      font-weight: 400;
-      line-height: em(16.94);
-      margin-top: rem(14);
-      min-height: rem(60);
-      color: var(--typography-black);
+  &_prodname {
+    font-size: em(14);
+    font-weight: 400;
+    line-height: em(16.94);
+    margin-top: rem(14);
+    min-height: rem(60);
+    color: var(--typography-black);
   }
 
-  &_footer{
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: rem(14) 0 rem(14);
-  }
-
-  &_cost{
-
-      & > span{
-          display: flex;
-          width: 100%;
-          font-size: em(11);
-          font-weight: 500;
-          text-transform: uppercase;
-          line-height: em(13);
-          color: var(--card-span-color);
-      }
-
-      & > b{
-          display: flex;
-          margin-top: rem(4);
-          width: 100%;
-          font-size: em(14);
-          font-weight: 700;
-          line-height: em(17);
-          color: var(--typography-black);
-      }
-  }
-}
-
-
-.btn_basked{
-    width: 32px;
-    height: 32px;
-    display: inline-flex;
+  &_footer {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    background-color: var(--def-white);
-    border: 1px solid var(--card-button-border-color);
-    border-radius: rem(8);
-    &__isChecked{
-        @extend .btn_basked;
-        background: linear-gradient(180deg, #89F09C 0%, #3CC755 100%);
-        border-color: transparent;
+    padding: rem(14) 0 rem(14);
+  }
+
+  &_cost {
+    & > span {
+      display: flex;
+      width: 100%;
+      font-size: em(11);
+      font-weight: 500;
+      text-transform: uppercase;
+      line-height: em(13);
+      color: var(--card-span-color);
     }
+
+    & > b {
+      display: flex;
+      margin-top: rem(4);
+      width: 100%;
+      font-size: em(14);
+      font-weight: 700;
+      line-height: em(17);
+      color: var(--typography-black);
+    }
+  }
+
+  @media screen and (max-width: 996px) {
+    padding-left: rem(22);
+    padding-right: rem(22);
+    margin: rem(30) rem(15) 0 rem(15);
+    width: calc(100% / 3 - #{rem(32)});
+  }
+
+  @media screen and (max-width: 728px) {
+    width: calc(100% / 2 - #{rem(32)});
+  }
+
+  @media screen and (max-width: 570px) {
+    width: calc(100% - #{rem(32)});
+  }
 }
 
-.btn_to_favorite{
+.btn_basked {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: var(--def-white);
+  border: 1px solid var(--card-button-border-color);
+  border-radius: rem(8);
+  &__isChecked {
+    @extend .btn_basked;
+    background: linear-gradient(180deg, #89f09c 0%, #3cc755 100%);
+    border-color: transparent;
+  }
+}
+
+.btn_to_favorite {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -102,7 +114,7 @@
   background-color: var(--def-white);
   border: 1px solid var(--favorite-btn-border-color);
   border-radius: rem(7);
-  &__isChecked{
+  &__isChecked {
     @extend .btn_to_favorite;
     background-color: var(--favorite-btn-checked-background-color);
   }
